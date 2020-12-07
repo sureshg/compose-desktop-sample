@@ -1,0 +1,20 @@
+
+# Mac OSX
+.DS_Store
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Gradle
+.gradle
+build
+reports
+!gradle-wrapper.jar
+
+# Java
+hs_err_pid*
+
+# Gradle release
+cx.json
