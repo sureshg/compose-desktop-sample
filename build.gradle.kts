@@ -4,8 +4,8 @@ import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
     idea
-    kotlin("jvm") version "1.4.20"
-    id("org.jetbrains.compose") version "0.3.0-build133"
+    kotlin("jvm") version "1.4.21"
+    id("org.jetbrains.compose") version "0.3.0-build134"
     id("com.github.ben-manes.versions") version "0.36.0"
     // id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -55,7 +55,9 @@ tasks {
                 "-Xopt-in=kotlin.ExperimentalStdlibApi",
                 "-Xopt-in=kotlin.ExperimentalUnsignedTypes",
                 "-Xopt-in=kotlin.time.ExperimentalTime",
-                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
+                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
             )
         }
     }
@@ -89,7 +91,7 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "dev.suresh.MainKt"
+        mainClass = "dev.suresh.gameloop.GameLoopKt"
         jvmArgs(
             "--show-version",
             "--enable-preview",
@@ -102,6 +104,9 @@ compose.desktop {
             targetFormats(Dmg, Msi, Deb)
             packageName = "compose-desktop-sample"
             version = project.version.toString()
+            description = "Compose desktop playground!"
+            copyright = "© 2020 Suresh"
+            vendor = "Suresh"
             modules("jdk.management.jfr", "jdk.management.agent", "java.xml")
         }
     }
