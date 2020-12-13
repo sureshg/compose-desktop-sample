@@ -78,7 +78,6 @@ fun main() = Window {
                 .background(Color.Red)
         )
     }
-
 }
 
 fun type(effect: Boolean) = when (effect) {
