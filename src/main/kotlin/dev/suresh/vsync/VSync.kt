@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.LockSupport
 import javax.swing.Timer
 
-
 fun main() {
     val refreshRate = GraphicsEnvironment
         .getLocalGraphicsEnvironment()

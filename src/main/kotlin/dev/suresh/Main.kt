@@ -30,10 +30,6 @@ import kotlinx.coroutines.*
 import java.awt.*
 import java.awt.dnd.*
 import java.net.*
-import java.util.concurrent.*
-import javax.swing.*
-import kotlin.coroutines.*
-
 
 @OptIn(ExperimentalKeyInput::class)
 fun main() = Window(
@@ -42,7 +38,9 @@ fun main() = Window(
     undecorated = false
 ) {
     // App()
-    Test()
+    Surface(color = Color.Magenta) {
+        Test()
+    }
     // ScrollBar()
 }
 
@@ -134,7 +132,6 @@ fun Test(name: String = "Kotlin") {
                     println("Waiting 3 sec")
                     delay(3000)
                     count += 10
-
                 }
             }
         }
@@ -151,11 +148,9 @@ private fun addDropTarget() {
         override fun drop(dtde: DropTargetDropEvent?) {
             println("Dropped here ${dtde?.transferable}")
         }
-
     }
     AppWindowAmbient.current?.window?.dropTarget = target
 }
-
 
 @Composable
 fun onEachFrame(): MutableState<Long> {
@@ -221,7 +216,6 @@ private fun App() {
                     Text(text = text)
                 }
 
-
                 ScrollableColumn {
                     pieces.forEach {
                         println("Adding chess card")
@@ -230,7 +224,6 @@ private fun App() {
                 }
             }
         }
-
     }
 }
 
@@ -251,7 +244,7 @@ fun ScrollBar() {
                     )
                         .preferredSize(80.dp, 20.dp)
                 ) {
-                    Text("data_${c}")
+                    Text("data_$c")
                 }
             }
             LazyRowFor(items = cols, state = stateHorizontal) { c ->
@@ -262,7 +255,7 @@ fun ScrollBar() {
                     )
                         .preferredSize(80.dp, 20.dp)
                 ) {
-                    Text("data_${c}")
+                    Text("data_$c")
                 }
             }
         }
@@ -315,7 +308,6 @@ fun ChessCard(piece: Piece) {
                 overflow = TextOverflow.Ellipsis
             )
         }
-
     }
 }
 
@@ -365,7 +357,6 @@ fun showFab(showDialog: MutableState<Boolean>) {
         }
         val file: String? = dialog.file
         println("$file chosen.")
-
 
 //
 //        Dialog(
@@ -477,9 +468,11 @@ fun BottomBar(state: ScaffoldState) {
             Snackbar(
                 text = { Text(text = "This is a snackbar!") },
                 action = {
-                    ClickableText(buildAnnotatedString {
-                        append("Click")
-                    }) {
+                    ClickableText(
+                        buildAnnotatedString {
+                            append("Click")
+                        }
+                    ) {
                         println("Closing...")
                     }
                 }
