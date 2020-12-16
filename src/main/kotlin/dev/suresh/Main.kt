@@ -18,7 +18,6 @@ import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
@@ -31,16 +30,15 @@ import java.awt.*
 import java.awt.dnd.*
 import java.net.*
 
-@OptIn(ExperimentalKeyInput::class)
 fun main() = Window(
     title = "Compose Desktop",
     centered = true,
     undecorated = false
 ) {
-    // App()
-    Surface(color = Color.Magenta) {
-        Test()
-    }
+    App()
+//    Surface(color = Color.Magenta) {
+//        Test()
+//    }
     // ScrollBar()
 }
 
@@ -106,7 +104,7 @@ fun Test(name: String = "Kotlin") {
 
                 var gCount by remember { mutableStateOf(0) }
 
-                var label by onEachFrame()
+                val label by onEachFrame()
 
                 Button(
                     modifier = Modifier
@@ -236,26 +234,32 @@ fun ScrollBar() {
         val cols = (0..30).toList()
 
         Column {
-            LazyRowFor(items = cols, state = stateHorizontal) { c ->
-                Box(
-                    modifier = Modifier.border(
-                        width = 1.dp,
-                        color = MaterialTheme.colors.onBackground
-                    )
-                        .preferredSize(80.dp, 20.dp)
-                ) {
-                    Text("data_$c")
+
+            LazyColumn(state = stateHorizontal) {
+                items(cols) { i ->
+                    Box(
+                        modifier = Modifier.border(
+                            width = 1.dp,
+                            color = MaterialTheme.colors.onBackground
+                        )
+                            .preferredSize(80.dp, 20.dp)
+                    ) {
+                        Text("data_$i")
+                    }
                 }
             }
-            LazyRowFor(items = cols, state = stateHorizontal) { c ->
-                Box(
-                    modifier = Modifier.border(
-                        width = 1.dp,
-                        color = MaterialTheme.colors.onBackground
-                    )
-                        .preferredSize(80.dp, 20.dp)
-                ) {
-                    Text("data_$c")
+
+            LazyColumn(state = stateHorizontal) {
+                items(cols) { i ->
+                    Box(
+                        modifier = Modifier.border(
+                            width = 1.dp,
+                            color = MaterialTheme.colors.onBackground
+                        )
+                            .preferredSize(80.dp, 20.dp)
+                    ) {
+                        Text("data_$i")
+                    }
                 }
             }
         }
@@ -311,7 +315,6 @@ fun ChessCard(piece: Piece) {
     }
 }
 
-@OptIn(ExperimentalKeyInput::class)
 @Composable
 fun showFab(showDialog: MutableState<Boolean>) {
     println("Recomposing..... >>>>")
@@ -491,24 +494,31 @@ fun NavBar(scaffoldState: ScaffoldState) {
         )
         Divider()
 
-        val items = List(100) { "Item-$it" }
+        val items = List(100) { "ItemIndexd-$it" }
 
-        LazyColumnFor(items) {
-            Text(
-                text = it,
-                fontFamily = FontFamily.Default,
-                style = TextStyle(fontWeight = FontWeight.Bold),
-                modifier = Modifier
-                    .padding(20.dp)
-                    .fillMaxWidth()
-                    .clickable(
-                        indication = rememberRipple(
-                            true,
-                            color = Color.Green
-                        )
-                    ) {
-                        scaffoldState.drawerState.close()
-                    },
+        LazyColumn(
+            contentPadding = PaddingValues(2.dp),
+        ) {
+            itemsIndexed(
+                items,
+                itemContent = { i, t ->
+                    Text(
+                        text = t,
+                        fontFamily = FontFamily.Default,
+                        style = TextStyle(fontWeight = FontWeight.Bold),
+                        modifier = Modifier
+                            .padding(20.dp)
+                            .fillMaxWidth()
+                            .clickable(
+                                indication = rememberRipple(
+                                    true,
+                                    color = Color.Green
+                                )
+                            ) {
+                                scaffoldState.drawerState.close()
+                            },
+                    )
+                },
             )
         }
     }
