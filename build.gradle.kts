@@ -40,7 +40,7 @@ tasks {
     withType<KotlinCompile>().configureEach {
         kotlinOptions {
             verbose = true
-            jvmTarget = "14"
+            jvmTarget = "15"
             javaParameters = true
             incremental = true
             freeCompilerArgs += listOf(
@@ -68,7 +68,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8-rc-1"
+        gradleVersion = "6.8-rc-3"
         distributionType = Wrapper.DistributionType.ALL
     }
 

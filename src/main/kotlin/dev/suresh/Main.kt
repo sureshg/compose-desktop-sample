@@ -39,7 +39,7 @@ fun main() = Window(
 //    Surface(color = Color.Magenta) {
 //        Test()
 //    }
-    // ScrollBar()
+//    ScrollBar()
 }
 
 @OptIn(InternalCoroutinesApi::class)
@@ -203,7 +203,7 @@ private fun App() {
             scaffoldState = state
         ) {
 
-            Column {
+            Column(modifier = Modifier.fillMaxSize()) {
                 Button(
                     modifier = Modifier.padding(2.dp),
                     shape = RoundedCornerShape(2.dp),
