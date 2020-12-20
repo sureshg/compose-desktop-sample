@@ -98,6 +98,7 @@ compose.desktop {
             "--enable-preview",
             "-XX:+PrintCommandLineFlags",
             "-XX:+UseZGC",
+            "-XX:StartFlightRecording:settings=profile,filename=/tmp/compose-rec.jfr",
             "-XX:FlightRecorderOptions:stackdepth=256",
             "-Djava.security.egd=file:/dev/./urandom"
         )
@@ -108,7 +109,7 @@ compose.desktop {
             description = "Compose desktop playground!"
             copyright = "© 2020 Suresh"
             vendor = "Suresh"
-            modules("jdk.management.jfr", "jdk.management.agent", "java.xml")
+            modules("jdk.jfr", "jdk.management.jfr", "jdk.management.agent", "java.xml")
         }
     }
 }

@@ -3,9 +3,18 @@
 [Jetbrains Compose][0] desktop playground!
 
 ```bash
+# Build the project
 $ ./gradlew clean build
+# Create OS specific package
 $ ./gradlew clean package 
-$ ./gradlew packageUberJarForCurrentOS 
+```
+
+### Find JPackage modules for the App
+
+```bash
+$ ./gradlew clean packageUberJarForCurrentOS
+# Use it in modules() section.
+$ jdeps --ignore-missing-deps --print-module-deps build/compose/jars/compose-desktop-sample-macos-x64-1.0.0.jar
 ```
 
 ## Examples
