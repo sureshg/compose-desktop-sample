@@ -1,8 +1,10 @@
 package dev.suresh.gameloop
 
+import androidx.compose.animation.*
 import androidx.compose.desktop.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.*
 import androidx.compose.material.*
 import androidx.compose.material.Icon
@@ -14,6 +16,7 @@ import androidx.compose.runtime.dispatch.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
 import dev.suresh.jfr.*
@@ -21,6 +24,7 @@ import kotlinx.coroutines.*
 
 val renderFrame = RenderFrame(0)
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FrameRate() {
     var frameRate by remember { mutableStateOf(0L) }
@@ -46,16 +50,55 @@ fun FrameRate() {
         }
     }
 
+    val k = remember { mutableStateOf(false) }
+    val (s, jk) = k
+
+    var selected by remember { mutableStateOf(false) }
+    val corner = animate(if (selected) 10.dp else 0.dp)
+    val color = animate(if (selected) Color.Red else Color.Green)
+
     Column(
         modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.TopCenter)
     ) {
         Text(
             "Frame rate: $frameRate fps",
             modifier = Modifier.border(
-                1.dp, Color.Red,
-                RoundedCornerShape(3.dp)
-            ).background(Color.Yellow).padding(12.dp),
+                1.dp, color,
+                RoundedCornerShape(corner),
+            ).background(Color.Yellow).padding(12.dp).pointerMoveFilter(
+                onEnter = {
+                    selected = true
+                    true
+                },
+                onExit = {
+                    selected = false
+                    true
+                }
+            ),
             color = Color.Red
+        )
+    }
+
+    Box {
+        val state = rememberLazyListState()
+        LazyColumn(
+            modifier = Modifier.padding(10.dp),
+            state = state,
+            reverseLayout = false,
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
+            items((1..100).toList()) { x ->
+                Text(
+                    x.toString(),
+                    modifier = Modifier.graphicsLayer(alpha = 0.5f).height(20.dp)
+                )
+            }
+        }
+
+        Spacer(Modifier.padding(horizontal = 30.dp))
+        VerticalScrollbar(
+            adapter = rememberScrollbarAdapter(state, 100, 20.dp),
+            modifier = Modifier.align(Alignment.Center),
         )
     }
 }

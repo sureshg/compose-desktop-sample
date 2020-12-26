@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
     idea
-    kotlin("jvm") version "1.4.21"
+    kotlin("jvm") version "1.4.20"
     id("org.jetbrains.compose") version "0.3.0-build135"
     id("com.github.ben-manes.versions") version "0.36.0"
     // id("com.github.johnrengelman.shadow") version "6.1.0"
@@ -68,7 +68,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8-rc-3"
+        gradleVersion = "6.8-rc-4"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -100,6 +100,7 @@ compose.desktop {
             "-XX:+UseZGC",
             "-XX:StartFlightRecording:settings=profile,filename=/tmp/compose-rec.jfr",
             "-XX:FlightRecorderOptions:stackdepth=256",
+            "-XX:NativeMemoryTracking=summary",
             "-Djava.security.egd=file:/dev/./urandom"
         )
         nativeDistributions {

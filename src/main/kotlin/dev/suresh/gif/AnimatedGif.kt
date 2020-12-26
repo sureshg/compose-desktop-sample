@@ -67,7 +67,7 @@ class AnimatedGif {
     constructor(
         logicalScreenDescriptor: LogicalScreenDescriptor,
         globalColorTable: GlobalColorTable?,
-        frames: List<ImageFrame>
+        frames: List<ImageFrame>,
     ) {
         this.logicalScreenDescriptor = logicalScreenDescriptor
         this.globalColorTable = globalColorTable
@@ -161,19 +161,19 @@ class AnimatedGif {
         val width: Int,
         val height: Int,
         val backgroundColorIndex: Int,
-        val pixelAspectRatio: Int
+        val pixelAspectRatio: Int,
     )
 
     class GlobalColorTable(
         val backgroundColorIndex: Int,
-        val colors: List<Color>
+        val colors: List<Color>,
     )
 
     class ImageFrame(
         val image: ImageBitmap,
         val imageDescriptor: ImageDescriptor,
         val localColorTable: List<Color>? = null,
-        val graphicControlExtension: GraphicControlExtension? = null
+        val graphicControlExtension: GraphicControlExtension? = null,
     )
 
     class ImageDescriptor(
@@ -181,7 +181,7 @@ class AnimatedGif {
         val imageTopPosition: Int,
         val imageHeight: Int,
         val imageWeight: Int,
-        val isInterlaced: Boolean
+        val isInterlaced: Boolean,
     )
 
     enum class DisposalMethod {
@@ -206,7 +206,7 @@ class AnimatedGif {
         val isUserInputFlag: Boolean,
         val isTransparentColorFlag: Boolean,
         val delayTime: Int,
-        val transparentColorIndex: Int
+        val transparentColorIndex: Int,
     )
 
     companion object {
