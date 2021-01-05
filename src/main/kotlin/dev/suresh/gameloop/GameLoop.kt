@@ -1,6 +1,7 @@
 package dev.suresh.gameloop
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.desktop.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -50,12 +51,9 @@ fun FrameRate() {
         }
     }
 
-    val k = remember { mutableStateOf(false) }
-    val (s, jk) = k
-
     var selected by remember { mutableStateOf(false) }
-    val corner = animate(if (selected) 10.dp else 0.dp)
-    val color = animate(if (selected) Color.Red else Color.Green)
+    val corner by animateAsState(if (selected) 10.dp else 0.dp)
+    val color by animateAsState(if (selected) Color.Red else Color.Green)
 
     Column(
         modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.TopCenter)
@@ -103,67 +101,69 @@ fun FrameRate() {
     }
 }
 
-fun main() = Window {
-
-    FrameRate()
-    Column(
-        modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)
-    ) {
-
-        val game = remember { Game() }
-        var effect by remember { mutableStateOf(true) }
-        var delay by remember { mutableStateOf(10) }
-
-        Text("Now using ${type(effect)}", textAlign = TextAlign.Center)
-        Spacer(Modifier.height(20.dp))
-        Button(
-            onClick = {
-                effect = !effect
-            }
+fun main(args: Array<String>) {
+    println("Args " + args[0])
+    Window {
+        FrameRate()
+        Column(
+            modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)
         ) {
-            Text("Toggle to ${type(!effect)}", textAlign = TextAlign.Center)
-        }
 
-        Spacer(Modifier.height(20.dp))
-        TextField(
-            value = delay.toString(),
-            onValueChange = { newValue -> delay = newValue.toIntOrNull() ?: 10 },
-            leadingIcon = { Icon(imageVector = Icons.Default.ArrowBack) },
-            shape = RoundedCornerShape(3.dp),
-        )
+            val game = remember { Game() }
+            var effect by remember { mutableStateOf(true) }
+            var delay by remember { mutableStateOf(10) }
 
-        if (effect) {
-            LaunchedEffect(Unit) {
-                println("---> Launching effect")
-                while (effect) {
-                    withFrameNanos {
-                        game.update(it)
+            Text("Now using ${type(effect)}", textAlign = TextAlign.Center)
+            Spacer(Modifier.height(20.dp))
+            Button(
+                onClick = {
+                    effect = !effect
+                }
+            ) {
+                Text("Toggle to ${type(!effect)}", textAlign = TextAlign.Center)
+            }
+
+            Spacer(Modifier.height(20.dp))
+            TextField(
+                value = delay.toString(),
+                onValueChange = { newValue -> delay = newValue.toIntOrNull() ?: 10 },
+                leadingIcon = { Icon(imageVector = Icons.Default.ArrowBack) },
+                shape = RoundedCornerShape(3.dp),
+            )
+
+            if (effect) {
+                LaunchedEffect(Unit) {
+                    println("---> Launching effect")
+                    while (effect) {
+                        withFrameNanos {
+                            game.update(it)
+                        }
+                    }
+                    println("<--- Exiting effect!")
+                }
+            } else {
+                // Memoize the normal coroutines.
+                remember {
+                    GlobalScope.launch(Dispatchers.Main) {
+                        println("===> Launching Timer")
+                        while (!effect) {
+                            game.update(System.nanoTime())
+                            delay(delay.toLong())
+                        }
+                        println("<=== Exiting Timer!")
                     }
                 }
-                println("<--- Exiting effect!")
             }
-        } else {
-            // Memoize the normal coroutines.
-            remember {
-                GlobalScope.launch(Dispatchers.Main) {
-                    println("===> Launching Timer")
-                    while (!effect) {
-                        game.update(System.nanoTime())
-                        delay(delay.toLong())
-                    }
-                    println("<=== Exiting Timer!")
-                }
-            }
-        }
 
-        // Text(game.pos.toString())
-        Box(
-            modifier = Modifier
-                .offset(x = game.pos.dp, y = game.pos.dp)
-                .clip(CircleShape)
-                .size(30.dp)
-                .background(Color.Red)
-        )
+            // Text(game.pos.toString())
+            Box(
+                modifier = Modifier
+                    .offset(x = game.pos.dp, y = game.pos.dp)
+                    .clip(CircleShape)
+                    .size(30.dp)
+                    .background(Color.Red)
+            )
+        }
     }
 }
 

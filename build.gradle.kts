@@ -4,8 +4,8 @@ import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
     idea
-    kotlin("jvm") version "1.4.20"
-    id("org.jetbrains.compose") version "0.3.0-build135"
+    kotlin("jvm") version "1.4.21-2"
+    id("org.jetbrains.compose") version "0.3.0-build138"
     id("com.github.ben-manes.versions") version "0.36.0"
     // id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -68,7 +68,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8-rc-4"
+        gradleVersion = "6.8-rc-5"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -93,6 +93,7 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "dev.suresh.gameloop.GameLoopKt"
+        args(kotlin.coreLibrariesVersion)
         jvmArgs(
             "--show-version",
             "--enable-preview",
@@ -104,7 +105,7 @@ compose.desktop {
             "-Djava.security.egd=file:/dev/./urandom"
         )
         nativeDistributions {
-            targetFormats(Dmg, Msi, Deb)
+            targetFormats(AppImage, Exe, Deb)
             packageName = "compose-desktop-sample"
             version = project.version.toString()
             description = "Compose desktop playground!"

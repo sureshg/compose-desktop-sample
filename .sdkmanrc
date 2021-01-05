@@ -1,3 +1,3 @@
 # Enable auto-env through the sdkman_auto_env config
 # Add key=value pairs of SDKs to use below
-java=16.ea.9.lm-open
+java=15.0.1-open

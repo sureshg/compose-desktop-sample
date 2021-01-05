@@ -17,8 +17,11 @@ $ ./gradlew clean packageUberJarForCurrentOS
 $ jdeps --ignore-missing-deps --print-module-deps build/compose/jars/compose-desktop-sample-macos-x64-1.0.0.jar
 ```
 
-## Examples
+## Misc
 
+ - [Jetpack Compose Source](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/)
+ - [Compose Release Notes](https://developer.android.com/jetpack/androidx/releases/compose)
+ - [Compose Awesome](https://github.com/jetpack-compose/jetpack-compose-awesome)  
  - [Flappy Bird](https://elye-project.medium.com/android-jetpack-compose-flappy-bird-9ac4b1d223df)
 
 [0]: https://www.jetbrains.com/lp/compose
