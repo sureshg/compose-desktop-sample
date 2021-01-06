@@ -5,21 +5,30 @@
 ```bash
 # Build the project
 $ ./gradlew clean build
+
 # Create OS specific package
 $ ./gradlew clean package 
+
+# Run the app
+$ ./gradlew clean run 
+  
+# Run the app image
+$ ./gradlew clean runDistributable
 ```
 
 ### Find JPackage modules for the App
 
 ```bash
 $ ./gradlew clean packageUberJarForCurrentOS
+
 # Use it in modules() section.
 $ jdeps --ignore-missing-deps --print-module-deps build/compose/jars/compose-desktop-sample-macos-x64-1.0.0.jar
 ```
 
-## Misc
+## Misc 
 
- - [Jetpack Compose Source](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/)
+ - [Jetpack Compose Source](https://github.com/androidx/androidx/tree/androidx-main/compose)
+ - [Jetpack Compose AOSP](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/)
  - [Compose Release Notes](https://developer.android.com/jetpack/androidx/releases/compose)
  - [Compose Awesome](https://github.com/jetpack-compose/jetpack-compose-awesome)  
  - [Flappy Bird](https://elye-project.medium.com/android-jetpack-compose-flappy-bird-9ac4b1d223df)

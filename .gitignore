@@ -15,6 +15,7 @@ reports
 
 # Java
 hs_err_pid*
+gc.log
 
 # Gradle release
 cx.json
