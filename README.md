@@ -25,6 +25,13 @@ $ ./gradlew clean packageUberJarForCurrentOS
 $ jdeps --ignore-missing-deps --print-module-deps build/compose/jars/compose-desktop-sample-macos-x64-1.0.0.jar
 ```
 
+### Troubleshooting
+
+```bash
+# Stop Gradle daemon after switching the JDK
+$ ./gradlew --stop
+
+```
 ## Misc 
 
  - [Jetpack Compose Source](https://github.com/androidx/androidx/tree/androidx-main/compose)

@@ -68,7 +68,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8-rc-5"
+        gradleVersion = "6.8"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -85,6 +85,7 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("net.redwarp.gif:decoder:0.2.2")
     // implementation("org.jxmapviewer:jxmapviewer2:2.5")
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
@@ -93,7 +94,10 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "dev.suresh.gameloop.GameLoopKt"
-        args(kotlin.coreLibrariesVersion)
+        args(
+            project.version.toString(),
+            kotlin.coreLibrariesVersion
+        )
         jvmArgs(
             "--show-version",
             "--enable-preview",
