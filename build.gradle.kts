@@ -31,7 +31,9 @@ tasks {
             compilerArgs.addAll(
                 listOf(
                     "-Xlint:all",
-                    "-parameters"
+                    "-parameters",
+                    "--add-opens",
+                    "java.base/java.util=ALL-UNNAMED"
                 )
             )
         }
@@ -101,6 +103,8 @@ compose.desktop {
         jvmArgs(
             "--show-version",
             "--enable-preview",
+            "--add-opens",
+            "java.base/java.util=ALL-UNNAMED",
             "-Xms48m",
             "-XX:+PrintCommandLineFlags",
             "-XX:+UseZGC",
