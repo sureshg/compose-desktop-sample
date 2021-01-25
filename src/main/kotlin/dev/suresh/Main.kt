@@ -214,10 +214,12 @@ private fun App() {
                     Text(text = text)
                 }
 
-                ScrollableColumn {
+                LazyColumn {
                     pieces.forEach {
                         println("Adding chess card")
-                        ChessCard(it)
+                        item {
+                            ChessCard(it)
+                        }
                     }
                 }
             }
@@ -513,7 +515,10 @@ fun NavBar(scaffoldState: ScaffoldState) {
                                 indication = rememberRipple(
                                     true,
                                     color = Color.Green
-                                )
+                                ),
+                                interactionState = remember {
+                                    InteractionState()
+                                }
                             ) {
                                 scaffoldState.drawerState.close()
                             },

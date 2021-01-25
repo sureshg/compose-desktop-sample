@@ -120,7 +120,8 @@ fun App(products: List<Product>) {
                 .border(8.dp, MaterialTheme.colors.secondary, shape)
                 .border(12.dp, MaterialTheme.colors.background, shape)
                 .clickable(
-                    indication = rememberRipple()
+                    indication = rememberRipple(),
+                    interactionState = remember { InteractionState() }
                 ) {
                     setShape(
                         when (shape) {
@@ -181,7 +182,7 @@ fun App(products: List<Product>) {
                 .padding(20.dp)
                 .size(size)
                 .align(alignment = Alignment.CenterHorizontally)
-                .clickable(indication = null) {
+                .clickable {
                     clicked = !clicked
                 },
             shape = RoundedCornerShape(20.dp),

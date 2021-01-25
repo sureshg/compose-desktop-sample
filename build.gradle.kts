@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     idea
     kotlin("jvm") version "1.4.21-2"
-    id("org.jetbrains.compose") version "0.3.0-build139"
+    id("org.jetbrains.compose") version "0.3.0-build141"
     id("com.github.ben-manes.versions") version "0.36.0"
     // id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -70,7 +70,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8"
+        gradleVersion = "6.8.1"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -88,9 +88,13 @@ repositories {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation("net.redwarp.gif:decoder:0.2.2")
-    // implementation("org.jxmapviewer:jxmapviewer2:2.5")
+
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+
+    // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
+    // implementation("io.github.chozzle:compose-macos-theme-desktop:0.2.0")
+    // implementation("org.jxmapviewer:jxmapviewer2:2.5")
 }
 
 compose.desktop {
