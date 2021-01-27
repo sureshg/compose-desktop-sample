@@ -2,15 +2,21 @@ package dev.suresh
 
 import androidx.compose.animation.*
 import androidx.compose.desktop.*
-import androidx.compose.foundation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ClickableText
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.HorizontalScrollbar
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.InteractionState
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.*
 import androidx.compose.material.*
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.icons.*
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material.ripple.*
 import androidx.compose.runtime.*
@@ -26,7 +32,7 @@ import androidx.compose.ui.window.*
 import dev.suresh.gif.*
 import dev.suresh.theme.*
 import kotlinx.coroutines.*
-import java.awt.*
+import java.awt.FileDialog
 import java.awt.dnd.*
 import java.net.*
 
@@ -300,6 +306,7 @@ fun ChessCard(piece: Piece) {
         Column {
             Image(
                 bitmap = img,
+                contentDescription = "Image",
                 modifier = Modifier
                     .padding(3.dp)
                     .preferredSize(30.dp)
@@ -320,9 +327,6 @@ fun ChessCard(piece: Piece) {
 @Composable
 fun showFab(showDialog: MutableState<Boolean>) {
     println("Recomposing..... >>>>")
-    onCommit {
-        println(">>>Lifecucle On COMMIT.....")
-    }
     val window = AppWindowAmbient.current
 
     FloatingActionButton(
@@ -330,7 +334,7 @@ fun showFab(showDialog: MutableState<Boolean>) {
             showDialog.value = true
         }
     ) {
-        Icon(Icons.Default.Home)
+        Icon(Icons.Default.Home, "Home")
     }
 
     if (showDialog.value) {
@@ -439,7 +443,7 @@ fun TopBar(name: String, scaffoldState: ScaffoldState) {
                     scaffoldState.drawerState.open { println("Drawer Opened!") }
                 },
             ) {
-                Icon(imageVector = Icons.Rounded.ArrowBack)
+                Icon(imageVector = Icons.Rounded.ArrowBack, "Arrow")
             }
         },
     )
@@ -492,6 +496,7 @@ fun NavBar(scaffoldState: ScaffoldState) {
     Column {
         Image(
             bitmap = imageFromResource("humming.jpg"),
+            contentDescription = "Hummingbird",
             modifier = Modifier.padding(5.dp).preferredSize(100.dp, 100.dp),
         )
         Divider()

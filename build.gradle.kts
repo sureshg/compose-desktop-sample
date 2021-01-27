@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     idea
     kotlin("jvm") version "1.4.21-2"
-    id("org.jetbrains.compose") version "0.3.0-build141"
+    id("org.jetbrains.compose") version "0.3.0-build143"
     id("com.github.ben-manes.versions") version "0.36.0"
     // id("com.github.johnrengelman.shadow") version "6.1.0"
 }

@@ -1,13 +1,13 @@
 package dev.suresh.ex
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.desktop.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.*
 import androidx.compose.material.*
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.ripple.*
@@ -32,7 +32,7 @@ fun main() = Window {
 //    )
 //    App(products)
 
-    var (check, setCheck) = remember { mutableStateOf(true) }
+    val (check, setCheck) = remember { mutableStateOf(true) }
 
     var count by remember { mutableStateOf(0) }
 
@@ -63,15 +63,18 @@ fun main() = Window {
 fun Test(name: String) {
     println(">>> Invoking the $name function!")
     Text("Hello $name")
-    onActive {
+
+    DisposableEffect(Unit) {
         println("$name composable activated")
         onDispose {
             println("$name composable deleted!")
         }
     }
 
-    onCommit(name) {
-        println("$name composable committed!")
+    DisposableEffect(name) {
+        onDispose {
+            println("$name composable committed!")
+        }
     }
 }
 
@@ -92,7 +95,7 @@ fun App(products: List<Product>) {
             },
             placeholder = null,
             leadingIcon = {
-                Icon(imageVector = Icons.Default.Menu)
+                Icon(imageVector = Icons.Default.Menu, "Menu")
             },
             shape = RoundedCornerShape(3.dp)
         )
@@ -111,6 +114,7 @@ fun App(products: List<Product>) {
 
         Image(
             bitmap = img,
+            contentDescription = "Image",
             contentScale = ContentScale.Crop,
             alpha = alpha,
             modifier = Modifier.size(256.dp)
@@ -165,7 +169,7 @@ fun App(products: List<Product>) {
 
         var clicked by remember { mutableStateOf(false) }
 
-        val size by animateAsState(
+        val size by animateDpAsState(
             targetValue = if (clicked) 100.dp else 50.dp,
             animationSpec = tween(
                 durationMillis = 3_00,
