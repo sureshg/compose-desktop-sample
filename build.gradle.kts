@@ -1,6 +1,6 @@
-import org.jetbrains.compose.*
+import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
-import org.jetbrains.kotlin.gradle.tasks.*
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     idea
@@ -78,13 +78,6 @@ tasks {
     defaultTasks("clean", "tasks", "--all")
 }
 
-repositories {
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    // maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
-    jcenter()
-}
-
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation("net.redwarp.gif:decoder:0.2.2")
@@ -126,7 +119,29 @@ compose.desktop {
             description = "Compose desktop playground!"
             copyright = "© 2020 Suresh"
             vendor = "Suresh"
-            modules("jdk.jfr", "jdk.management.jfr", "jdk.management.agent", "java.xml")
+            modules(
+                "jdk.jfr",
+                "jdk.management.jfr",
+                "jdk.management.agent",
+                "jdk.crypto.ec",
+                "java.xml"
+            )
+
+            val resRoot = sourceSets.main.get().resources.srcDirs.first()
+            macOS {
+                iconFile.set(resRoot.resolve("icons/icon-mac.icns"))
+            }
+
+            linux {
+                iconFile.set(resRoot.resolve("icons/icon-linux.png"))
+            }
+
+            windows {
+                iconFile.set(resRoot.resolve("icons/icon-windows.ico"))
+                menuGroup = "Compose Example"
+                // see https://wixtoolset.org/documentation/manual/v3/howtos/general/generate_guids.html
+                upgradeUuid = "18159785-d967-4CD2-8885-77BFA97CFA9F"
+            }
         }
     }
 }
