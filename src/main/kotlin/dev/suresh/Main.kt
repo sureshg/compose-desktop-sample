@@ -23,7 +23,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
@@ -205,7 +204,7 @@ private fun App() {
             floatingActionButton = { showFab(showDialog) },
             drawerElevation = 10.dp,
             drawerContent = { NavBar(state) },
-            drawerShape = RoundedCornerShape(topRight = 10.dp, bottomRight = 10.dp),
+            drawerShape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp),
             scaffoldState = state
         ) {
 

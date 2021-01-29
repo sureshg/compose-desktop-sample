@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     idea
     kotlin("jvm") version "1.4.21-2"
-    id("org.jetbrains.compose") version "0.3.0-build143"
+    id("org.jetbrains.compose") version "0.3.0-build146"
     id("com.github.ben-manes.versions") version "0.36.0"
     // id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -108,9 +108,9 @@ compose.desktop {
             "-Xlog:gc*:/tmp/gc.log",
             "-XX:StartFlightRecording:settings=profile,filename=/tmp/compose-rec.jfr",
             "-XX:FlightRecorderOptions:stackdepth=256",
-            "-XX:NativeMemoryTracking=summary",
             "-Djdk.tracePinnedThreads=full",
             "-Djava.security.egd=file:/dev/./urandom"
+            // "-XX:NativeMemoryTracking=summary"
         )
         nativeDistributions {
             targetFormats(AppImage, Exe, Deb)

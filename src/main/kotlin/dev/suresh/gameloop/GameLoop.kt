@@ -31,11 +31,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.dispatch.withFrameNanos
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -91,17 +91,18 @@ fun FrameRate() {
             "Frame rate: $frameRate fps",
             modifier = Modifier.border(
                 1.dp, color,
-                RoundedCornerShape(corner),
-            ).background(Color.Yellow).padding(12.dp).pointerMoveFilter(
-                onEnter = {
-                    selected = true
-                    true
-                },
-                onExit = {
-                    selected = false
-                    true
-                }
-            ),
+                RoundedCornerShape(corner)
+            ).background(Color.Yellow).padding(12.dp)
+                .pointerMoveFilter(
+                    onEnter = {
+                        selected = true
+                        true
+                    },
+                    onExit = {
+                        selected = false
+                        true
+                    }
+                ),
             color = Color.Red
         )
     }
