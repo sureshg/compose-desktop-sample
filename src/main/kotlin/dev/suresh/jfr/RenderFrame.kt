@@ -2,22 +2,22 @@ package dev.suresh.jfr
 
 import jdk.jfr.*
 
-@Label("Render Frame")
+@Label("Frame Rate")
 @Name("dev.suresh.RenderFrame")
-@Description("Frame rate counter")
-class RenderFrame(
-    @Label("Frame Id")
-    private var frameId: Long,
+@Description("Frame rate (fps)")
+class FrameRate(
+    @Label("FPS")
+    private var fRate: Int,
 ) : Event() {
 
-    val count get() = frameId
-
     /**
-     * Generate an updated event. Not thread safe.
+     * Generate an FPS event. Not thread safe.
      */
-    fun inc() {
-        begin()
-        frameId++
-        commit()
-    }
+    var fps: Int
+        get() = fRate
+        set(fps) {
+            begin()
+            this.fRate = fps
+            commit()
+        }
 }

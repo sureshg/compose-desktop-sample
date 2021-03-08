@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.desktop.*
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.*
 import androidx.compose.material.*
@@ -125,7 +126,7 @@ fun App(products: List<Product>) {
                 .border(12.dp, MaterialTheme.colors.background, shape)
                 .clickable(
                     indication = rememberRipple(),
-                    interactionState = remember { InteractionState() }
+                    interactionSource = remember { MutableInteractionSource() }
                 ) {
                     setShape(
                         when (shape) {

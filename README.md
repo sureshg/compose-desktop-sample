@@ -29,7 +29,7 @@ $ jdeps --ignore-missing-deps --print-module-deps build/compose/jars/compose-des
 
 ```bash
 # Stop Gradle daemon after switching the JDK
-$ ./gradlew --stop
+$ ./gradlew --stop && pkill -f KotlinCompileDaemon
 
 ```
 ## Misc 

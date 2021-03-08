@@ -2,27 +2,22 @@ package dev.suresh
 
 import androidx.compose.animation.*
 import androidx.compose.desktop.*
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ClickableText
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.HorizontalScrollbar
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.InteractionState
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.*
+import androidx.compose.foundation.text.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.*
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material.ripple.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
@@ -31,14 +26,15 @@ import androidx.compose.ui.window.*
 import dev.suresh.gif.*
 import dev.suresh.theme.*
 import kotlinx.coroutines.*
-import java.awt.FileDialog
+import java.awt.*
+
 import java.awt.dnd.*
 import java.net.*
 
+
 fun main() = Window(
     title = "Compose Desktop",
-    centered = true,
-    undecorated = false
+    centered = true
 ) {
     App()
 //    Surface(color = Color.Magenta) {
@@ -152,7 +148,7 @@ private fun addDropTarget() {
             println("Dropped here ${dtde?.transferable}")
         }
     }
-    AppWindowAmbient.current?.window?.dropTarget = target
+    LocalAppWindow.current.window.dropTarget = target
 }
 
 @Composable
@@ -248,8 +244,7 @@ fun ScrollBar() {
                         modifier = Modifier.border(
                             width = 1.dp,
                             color = MaterialTheme.colors.onBackground
-                        )
-                            .preferredSize(80.dp, 20.dp)
+                        ).size(80.dp, 20.dp)
                     ) {
                         Text("data_$i")
                     }
@@ -262,8 +257,7 @@ fun ScrollBar() {
                         modifier = Modifier.border(
                             width = 1.dp,
                             color = MaterialTheme.colors.onBackground
-                        )
-                            .preferredSize(80.dp, 20.dp)
+                        ).size(80.dp, 20.dp)
                     ) {
                         Text("data_$i")
                     }
@@ -298,7 +292,7 @@ fun ChessCard(piece: Piece) {
     }
 
     Card(
-        modifier = Modifier.padding(4.dp).preferredSize(400.dp, 100.dp),
+        modifier = Modifier.padding(4.dp).size(400.dp, 100.dp),
         backgroundColor = Color.LightGray,
         elevation = 3.dp
     ) {
@@ -308,10 +302,10 @@ fun ChessCard(piece: Piece) {
                 contentDescription = "Image",
                 modifier = Modifier
                     .padding(3.dp)
-                    .preferredSize(30.dp)
+                    .size(30.dp)
                     .clip(RoundedCornerShape(5.dp))
             )
-            Spacer(Modifier.preferredHeight(10.dp))
+            Spacer(Modifier.size(10.dp))
             Text(text = piece.name, style = typography.h6)
             Text(
                 text = piece.desc,
@@ -326,7 +320,7 @@ fun ChessCard(piece: Piece) {
 @Composable
 fun showFab(showDialog: MutableState<Boolean>) {
     println("Recomposing..... >>>>")
-    val window = AppWindowAmbient.current
+    val window = LocalAppWindow.current
 
     FloatingActionButton(
         onClick = {
@@ -357,7 +351,7 @@ fun showFab(showDialog: MutableState<Boolean>) {
 //        }
 
         val dialog = FileDialog(
-            window?.window,
+            window.window,
             "Select File to Open"
         ).apply {
             mode = FileDialog.LOAD
@@ -439,7 +433,10 @@ fun TopBar(name: String, scaffoldState: ScaffoldState) {
         navigationIcon = {
             IconButton(
                 onClick = {
-                    scaffoldState.drawerState.open { println("Drawer Opened!") }
+                    cs.launch {
+                        scaffoldState.drawerState.open()
+                    }
+
                 },
             ) {
                 Icon(imageVector = Icons.Rounded.ArrowBack, "Arrow")
@@ -451,10 +448,7 @@ fun TopBar(name: String, scaffoldState: ScaffoldState) {
         println(">>>>>> Scheduling the the Timer")
         LaunchedEffect(cs) {
             delay(3000)
-            scaffoldState.drawerState.close {
-                println("Auto closing the Drawer!!!")
-            }
-
+            scaffoldState.drawerState.close()
             withContext(Dispatchers.IO) {
             }
         }
@@ -474,7 +468,6 @@ fun BottomBar(state: ScaffoldState) {
 
         if (state.drawerState.isClosed) {
             Snackbar(
-                text = { Text(text = "This is a snackbar!") },
                 action = {
                     ClickableText(
                         buildAnnotatedString {
@@ -484,7 +477,9 @@ fun BottomBar(state: ScaffoldState) {
                         println("Closing...")
                     }
                 }
-            )
+            ) {
+                Text(text = "This is a snackbar!")
+            }
         }
     }
 }
@@ -492,15 +487,18 @@ fun BottomBar(state: ScaffoldState) {
 @Composable
 fun NavBar(scaffoldState: ScaffoldState) {
     println("#### Recompose NavBar #######")
+
     Column {
         Image(
             bitmap = imageFromResource("humming.jpg"),
             contentDescription = "Hummingbird",
-            modifier = Modifier.padding(5.dp).preferredSize(100.dp, 100.dp),
+            modifier = Modifier.padding(5.dp).size(100.dp, 100.dp),
         )
         Divider()
 
         val items = List(100) { "ItemIndexd-$it" }
+
+        val cs = rememberCoroutineScope()
 
         LazyColumn(
             contentPadding = PaddingValues(2.dp),
@@ -520,11 +518,11 @@ fun NavBar(scaffoldState: ScaffoldState) {
                                     true,
                                     color = Color.Green
                                 ),
-                                interactionState = remember {
-                                    InteractionState()
-                                }
+                                interactionSource = remember { MutableInteractionSource() }
                             ) {
-                                scaffoldState.drawerState.close()
+                                cs.launch {
+                                    scaffoldState.drawerState.close()
+                                }
                             },
                     )
                 },

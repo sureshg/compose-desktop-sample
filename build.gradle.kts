@@ -1,13 +1,15 @@
-import org.jetbrains.compose.compose
+import org.gradle.jvm.tasks.Jar
+import org.jetbrains.compose.*
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.*
+import java.io.*
+import java.util.spi.*
 
 plugins {
     idea
-    kotlin("jvm") version "1.4.21-2"
-    id("org.jetbrains.compose") version "0.3.0-build146"
-    id("com.github.ben-manes.versions") version "0.36.0"
-    // id("com.github.johnrengelman.shadow") version "6.1.0"
+    kotlin("jvm") version "1.4.31"
+    id("org.jetbrains.compose") version "0.3.2"
+    id("com.github.ben-manes.versions") version "0.38.0"
 }
 
 group = "dev.suresh"
@@ -43,6 +45,7 @@ tasks {
         kotlinOptions {
             verbose = true
             jvmTarget = "15"
+            useIR = true
             javaParameters = true
             incremental = true
             freeCompilerArgs += listOf(
@@ -70,8 +73,30 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8.1"
+        gradleVersion = "6.8.3"
         distributionType = Wrapper.DistributionType.ALL
+    }
+
+    /**
+     * A task to print all the module dependencies of the compose application.
+     */
+    val printModuleDeps by creating {
+        this.description = ""
+        this.group = ""
+        doLast {
+            val uberJar = named("packageUberJarForCurrentOS", Jar::class)
+            val jarFile = uberJar.get().archiveFile.get().asFile
+
+            val jdeps = ToolProvider.findFirst("jdeps").orElseGet { error("") }
+            val out = StringWriter()
+            val pw = PrintWriter(out)
+            jdeps.run(pw, pw, "--print-module-deps", "--ignore-missing-deps", jarFile.absolutePath)
+
+            val modules = out.toString()
+            println(modules)
+            // compose.desktop.application.nativeDistributions.modules.addAll(modules.split(","))
+        }
+        dependsOn("packageUberJarForCurrentOS")
     }
 
     // Default task
@@ -80,14 +105,19 @@ tasks {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation("net.redwarp.gif:decoder:0.2.2")
+    implementation(compose.materialIconsExtended)
+    implementation("app.redwarp.gif:decoder:0.4.0")
 
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 
     // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
     // implementation("io.github.chozzle:compose-macos-theme-desktop:0.2.0")
-    // implementation("org.jxmapviewer:jxmapviewer2:2.5")
+    // https://github.com/ruckustboom/Palette - Material colors
+    // https://github.com/app-outlet/karavel  - Navigation
+    // https://github.com/DevSrSouza/svg-to-compose
+    // https://github.com/TheMrCodes/Compose-Tab-Component
+    // https://github.com/tehras/charts
 }
 
 compose.desktop {
@@ -106,16 +136,19 @@ compose.desktop {
             "-XX:+PrintCommandLineFlags",
             "-XX:+UseZGC",
             "-Xlog:gc*:/tmp/gc.log",
-            "-XX:StartFlightRecording:settings=profile,filename=/tmp/compose-rec.jfr",
+            "-XX:StartFlightRecording:settings=default,filename=/tmp/compose-rec.jfr",
             "-XX:FlightRecorderOptions:stackdepth=256",
             "-Djdk.tracePinnedThreads=full",
-            "-Djava.security.egd=file:/dev/./urandom"
+            "-Djava.security.egd=file:/dev/./urandom",
+            "-Dskiko.fps.enabled=true",
+            "-Dskiko.fps.count=200"
+            // "skiko.vsync.enabled=false",
             // "-XX:NativeMemoryTracking=summary"
         )
         nativeDistributions {
-            targetFormats(AppImage, Exe, Deb)
+            targetFormats(Dmg, Exe, Deb)
             packageName = "compose-desktop-sample"
-            version = project.version.toString()
+            packageVersion = project.version.toString()
             description = "Compose desktop playground!"
             copyright = "© 2020 Suresh"
             vendor = "Suresh"
@@ -127,9 +160,12 @@ compose.desktop {
                 "java.xml"
             )
 
-            val resRoot = sourceSets.main.get().resources.srcDirs.first()
+            // sourceSets.main.get().resources.srcDirs.first()
+            val resRoot = project.file("src/main/resources")
+
             macOS {
                 iconFile.set(resRoot.resolve("icons/icon-mac.icns"))
+                setDockNameSameAsPackageName = true
             }
 
             linux {

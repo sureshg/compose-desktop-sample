@@ -1,81 +1,45 @@
 package dev.suresh.gameloop
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.desktop.Window
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollbarAdapter
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameNanos
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerMoveFilter
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import dev.suresh.jfr.RenderFrame
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
+import androidx.compose.desktop.*
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.*
+import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.draw.*
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.input.pointer.*
+import androidx.compose.ui.text.style.*
+import androidx.compose.ui.unit.*
+import dev.suresh.jfr.*
+import kotlinx.coroutines.*
 
-val renderFrame = RenderFrame(0)
+val jfrEvent = FrameRate(0)
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FrameRate() {
-    var frameRate by remember { mutableStateOf(0L) }
+    var frameRate by remember { mutableStateOf(0) }
 
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            var prevCount = renderFrame.count
-            while (isActive) {
-                val count = renderFrame.count
-                delay(1000)
-                frameRate = count - prevCount
-                prevCount = count
-                // println(Thread.currentThread().name)
-            }
-        }
-    }
-
-    LaunchedEffect(Unit) {
+        var frameCount = 0
+        var prevTime = withFrameNanos { it }
         while (isActive) {
             withFrameNanos {
-                renderFrame.inc()
+                frameCount++
+                val seconds = (it - prevTime) / 1E9 // 1E9 nanoseconds is 1 second
+                if (seconds >= 1) {
+                    frameRate = (frameCount / seconds).toInt()
+                    prevTime = it
+                    frameCount = 0
+                    jfrEvent.fps = frameRate
+                }
             }
         }
     }
@@ -132,7 +96,7 @@ fun FrameRate() {
 }
 
 fun main(args: Array<String>) {
-    println("Args " + args[0])
+    println("Args " + args.getOrElse(0) { "1.0" })
     Window {
         FrameRate()
         Column(
