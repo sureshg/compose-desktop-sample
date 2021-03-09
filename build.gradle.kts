@@ -8,7 +8,7 @@ import java.util.spi.*
 plugins {
     idea
     kotlin("jvm") version "1.4.31"
-    id("org.jetbrains.compose") version "0.3.2"
+    id("org.jetbrains.compose") version "0.4.0-build173"
     id("com.github.ben-manes.versions") version "0.38.0"
 }
 
