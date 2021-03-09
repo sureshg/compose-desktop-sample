@@ -112,6 +112,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 
     // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
+    // implementation("com.zachklipp.compose-richtext:richtext-ui:0.2.0")
     // implementation("io.github.chozzle:compose-macos-theme-desktop:0.2.0")
     // https://github.com/ruckustboom/Palette - Material colors
     // https://github.com/app-outlet/karavel  - Navigation
