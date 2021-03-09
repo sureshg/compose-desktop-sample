@@ -81,8 +81,6 @@ tasks {
      * A task to print all the module dependencies of the compose application.
      */
     val printModuleDeps by creating {
-        this.description = ""
-        this.group = ""
         doLast {
             val uberJar = named("packageUberJarForCurrentOS", Jar::class)
             val jarFile = uberJar.get().archiveFile.get().asFile
