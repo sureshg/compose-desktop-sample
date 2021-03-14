@@ -106,6 +106,11 @@ dependencies {
     implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.4.0")
 
+    // Icons Pack
+    listOf("font-awesome", "simple-icons", "tabler-icons", "feather", "eva-icons").forEach {
+        implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.1.1")
+    }
+
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 

@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
+import compose.icons.*
+import compose.icons.simpleicons.*
 import dev.suresh.jfr.*
 import kotlinx.coroutines.*
 
@@ -51,24 +53,32 @@ fun FrameRate() {
     Column(
         modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.TopCenter)
     ) {
-        Text(
-            "Frame rate: $frameRate fps",
-            modifier = Modifier.border(
-                1.dp, color,
-                RoundedCornerShape(corner)
-            ).background(Color.Yellow).padding(12.dp)
-                .pointerMoveFilter(
-                    onEnter = {
-                        selected = true
-                        true
-                    },
-                    onExit = {
-                        selected = false
-                        true
-                    }
-                ),
-            color = Color.Red
-        )
+        Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+            Icon(
+                imageVector = SimpleIcons.Kotlin,
+                contentDescription = "",
+                tint = MaterialTheme.colors.primary,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+            Text(
+                "Frame rate: $frameRate fps",
+                modifier = Modifier.border(
+                    1.dp, color,
+                    RoundedCornerShape(corner)
+                ).background(Color.Yellow).padding(12.dp)
+                    .pointerMoveFilter(
+                        onEnter = {
+                            selected = true
+                            true
+                        },
+                        onExit = {
+                            selected = false
+                            true
+                        }
+                    ),
+                color = Color.Red
+            )
+        }
     }
 
     Box {
