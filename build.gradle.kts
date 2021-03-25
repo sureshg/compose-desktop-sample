@@ -1,14 +1,11 @@
-import org.gradle.jvm.tasks.Jar
 import org.jetbrains.compose.*
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
 import org.jetbrains.kotlin.gradle.tasks.*
-import java.io.*
-import java.util.spi.*
 
 plugins {
     idea
-    kotlin("jvm") version "1.4.31"
-    id("org.jetbrains.compose") version "0.4.0-build173"
+    kotlin("jvm") version "1.4.32"
+    id("org.jetbrains.compose") version "0.4.0-build176"
     id("com.github.ben-manes.versions") version "0.38.0"
 }
 
@@ -73,28 +70,8 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "6.8.3"
+        gradleVersion = "7.0-rc-1"
         distributionType = Wrapper.DistributionType.ALL
-    }
-
-    /**
-     * A task to print all the module dependencies of the compose application.
-     */
-    val printModuleDeps by creating {
-        doLast {
-            val uberJar = named("packageUberJarForCurrentOS", Jar::class)
-            val jarFile = uberJar.get().archiveFile.get().asFile
-
-            val jdeps = ToolProvider.findFirst("jdeps").orElseGet { error("") }
-            val out = StringWriter()
-            val pw = PrintWriter(out)
-            jdeps.run(pw, pw, "--print-module-deps", "--ignore-missing-deps", jarFile.absolutePath)
-
-            val modules = out.toString()
-            println(modules)
-            // compose.desktop.application.nativeDistributions.modules.addAll(modules.split(","))
-        }
-        dependsOn("packageUberJarForCurrentOS")
     }
 
     // Default task

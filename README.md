@@ -19,7 +19,7 @@ $ ./gradlew clean runDistributable
 ### Print Java Platform Module deps
 
 ```bash
-$ ./gradlew printModuleDeps
+$ ./gradlew suggestRuntimeModules
 ```
 
 ### Troubleshooting
