@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     idea
     kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.compose") version "0.4.0-build176"
+    id("org.jetbrains.compose") version "0.4.0-build177"
     id("com.github.ben-manes.versions") version "0.38.0"
 }
 
@@ -81,7 +81,7 @@ tasks {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
-    implementation("app.redwarp.gif:decoder:0.4.0")
+    implementation("app.redwarp.gif:decoder:0.5.0")
 
     // Icons Pack
     listOf("font-awesome", "simple-icons", "tabler-icons", "feather", "eva-icons").forEach {
@@ -96,6 +96,7 @@ dependencies {
     // implementation("io.github.chozzle:compose-macos-theme-desktop:0.2.0")
     // https://github.com/ruckustboom/Palette - Material colors
     // https://github.com/app-outlet/karavel  - Navigation
+    // com.github.Tlaster.PreCompose:precompose:1.0.0
     // https://github.com/DevSrSouza/svg-to-compose
     // https://github.com/TheMrCodes/Compose-Tab-Component
     // https://github.com/tehras/charts
