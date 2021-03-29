@@ -83,14 +83,26 @@ dependencies {
     implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.5.0")
 
-    // Icons Pack
-    listOf("font-awesome", "simple-icons", "tabler-icons", "feather", "eva-icons").forEach {
-        implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.1.1")
+    // Icons Packs
+    listOf(
+        "simple-icons",
+        "feather",
+        "tabler-icons",
+        "eva-icons",
+        "font-awesome",
+        "octicons",
+        "linea",
+        "line-awesome",
+        "erikflowers-weather-icons",
+        "css-gg"
+    ).forEach {
+        implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.2.0")
     }
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 
+    // implementation("com.google.accompanist:accompanist-flowlayout:0.7.0")
     // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
     // implementation("com.zachklipp.compose-richtext:richtext-ui:0.2.0")
     // implementation("io.github.chozzle:compose-macos-theme-desktop:0.2.0")
