@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     idea
     kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.compose") version "0.4.0-build177"
+    id("org.jetbrains.compose") version "0.4.0-build178"
     id("com.github.ben-manes.versions") version "0.38.0"
 }
 
@@ -81,7 +81,7 @@ tasks {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
-    implementation("app.redwarp.gif:decoder:0.5.0")
+    implementation("app.redwarp.gif:decoder:0.5.1")
 
     // Icons Packs
     listOf(
