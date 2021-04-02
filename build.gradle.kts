@@ -70,7 +70,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "7.0-rc-1"
+        gradleVersion = "7.0-rc-2"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -82,7 +82,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.5.1")
-
+    implementation("moe.tlaster:precompose:0.1.1")
     // Icons Packs
     listOf(
         "simple-icons",
