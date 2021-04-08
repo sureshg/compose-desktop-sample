@@ -160,6 +160,12 @@ compose.desktop {
             macOS {
                 iconFile.set(resRoot.resolve("icons/icon-mac.icns"))
                 setDockNameSameAsPackageName = true
+                bundleID = "${project.group}.${project.name}"
+
+                notarization {
+                    appleID.set("test.app@example.com")
+                    password.set("@keychain:NOTARIZATION_PASSWORD")
+                }
             }
 
             linux {
