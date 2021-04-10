@@ -1,8 +1,6 @@
 package dev.suresh.ex
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.desktop.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.*

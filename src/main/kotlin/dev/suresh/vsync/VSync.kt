@@ -1,10 +1,9 @@
 package dev.suresh.vsync
 
-import java.awt.GraphicsEnvironment
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.locks.LockSupport
-import javax.swing.Timer
+import java.awt.*
+import java.util.concurrent.*
+import java.util.concurrent.locks.*
+import javax.swing.*
 
 fun main() {
     val refreshRate = GraphicsEnvironment

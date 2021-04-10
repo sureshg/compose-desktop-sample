@@ -1,6 +1,6 @@
 package dev.suresh.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*

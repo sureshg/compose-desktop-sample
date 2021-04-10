@@ -30,22 +30,28 @@ fun main() = Window {
 
         Column {
             TabRow(selectedTabIndex = 0, Modifier.height(48.dp)) {
-                Tab(selected = true,
+                Tab(
+                    selected = true,
                     onClick = { },
                     enabled = true,
-                    modifier = Modifier.fillMaxHeight()) {
+                    modifier = Modifier.fillMaxHeight()
+                ) {
                     Text("Tab 1", Modifier.padding(3.dp), textAlign = TextAlign.Center)
                 }
-                Tab(selected = false,
+                Tab(
+                    selected = false,
                     onClick = { },
                     enabled = true,
-                    modifier = Modifier.fillMaxHeight()) {
+                    modifier = Modifier.fillMaxHeight()
+                ) {
                     Text("Search: Result", Modifier.padding(3.dp), textAlign = TextAlign.Center)
                 }
-                Tab(selected = false,
+                Tab(
+                    selected = false,
                     onClick = { },
                     enabled = true,
-                    modifier = Modifier.fillMaxHeight()) {
+                    modifier = Modifier.fillMaxHeight()
+                ) {
                     Text("Tab 3", Modifier.padding(3.dp), textAlign = TextAlign.Center)
                 }
             }

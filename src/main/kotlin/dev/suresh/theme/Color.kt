@@ -1,7 +1,7 @@
 package dev.suresh.theme
 
 import androidx.compose.material.*
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
 
 val purple200 = Color(0xFFBB86FC)
 val purple500 = Color(0xFF6200EE)

@@ -37,10 +37,6 @@ fun main() = Window(
     centered = true
 ) {
     App()
-//    Surface(color = Color.Magenta) {
-//        Test()
-//    }
-//    ScrollBar()
 }
 
 @OptIn(InternalCoroutinesApi::class)

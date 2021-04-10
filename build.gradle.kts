@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     idea
     kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.compose") version "0.4.0-build179"
+    id("org.jetbrains.compose") version "0.4.0-build180"
     id("com.github.ben-manes.versions") version "0.38.0"
 }
 
@@ -70,7 +70,7 @@ tasks {
     }
 
     wrapper {
-        gradleVersion = "7.0-rc-2"
+        gradleVersion = "7.0"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -82,7 +82,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.5.1")
-    implementation("moe.tlaster:precompose:0.1.1")
+    implementation("moe.tlaster:precompose:0.1.2")
     // Icons Packs
     listOf(
         "simple-icons",
