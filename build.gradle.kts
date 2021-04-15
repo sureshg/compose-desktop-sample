@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-    idea
+    id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha07"
     kotlin("jvm") version "1.4.32"
     id("org.jetbrains.compose") version "0.4.0-build182"
     id("com.github.ben-manes.versions") version "0.38.0"
@@ -58,12 +58,6 @@ spotless {
 }
 
 tasks {
-    idea {
-        module {
-            isDownloadJavadoc = true
-            isDownloadSources = true
-        }
-    }
 
     withType<JavaCompile>().configureEach {
         options.apply {
