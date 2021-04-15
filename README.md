@@ -9,11 +9,11 @@
 $ ./gradlew clean build
 
 # Create OS specific package
-$ ./gradlew clean package 
+$ ./gradlew clean package
 
 # Run the app
-$ ./gradlew clean run 
-  
+$ ./gradlew clean run
+
 # Run the app image
 $ ./gradlew clean runDistributable
 ```
