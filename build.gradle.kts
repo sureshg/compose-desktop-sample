@@ -1,19 +1,63 @@
 import org.jetbrains.compose.*
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
+import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
     idea
     kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.compose") version "0.4.0-build180"
+    id("org.jetbrains.compose") version "0.4.0-build182"
     id("com.github.ben-manes.versions") version "0.38.0"
+    id("com.diffplug.spotless") version "5.12.1"
 }
 
 group = "dev.suresh"
 version = "1.0.0"
 
-tasks {
+kotlin {
+    // explicitApi()
+    sourceSets.all {
+        languageSettings.apply {
+            progressiveMode = true
+            enableLanguageFeature(LanguageFeature.InlineClasses.name)
+            enableLanguageFeature(LanguageFeature.NewInference.name)
+            enableLanguageFeature(LanguageFeature.JvmRecordSupport.name)
+            useExperimentalAnnotation("kotlin.RequiresOptIn")
+            useExperimentalAnnotation("kotlin.ExperimentalStdlibApi")
+            useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
+            useExperimentalAnnotation("kotlin.io.path.ExperimentalPathApi")
+            useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+            useExperimentalAnnotation("kotlinx.serialization.ExperimentalSerializationApi")
+            useExperimentalAnnotation("kotlin.ExperimentalMultiplatform")
+            // Compose specific
+            useExperimentalAnnotation("androidx.compose.material.ExperimentalMaterialApi")
+            useExperimentalAnnotation("androidx.compose.animation.ExperimentalAnimationApi")
+            useExperimentalAnnotation("androidx.compose.foundation.ExperimentalFoundationApi")
+            useExperimentalAnnotation("androidx.compose.runtime.ExperimentalComposeApi")
+            useExperimentalAnnotation("androidx.compose.ui.ExperimentalComposeUiApi")
+        }
+    }
+}
 
+spotless {
+    kotlin {
+        ktfmt()
+        targetExclude("$buildDir/**/*.kt", "bin/**/*.kt")
+    }
+
+    kotlinGradle {
+        ktfmt()
+        target("*.gradle.kts")
+    }
+
+    format("misc") {
+        target("**/*.md", "**/.gitignore")
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+tasks {
     idea {
         module {
             isDownloadJavadoc = true
@@ -50,16 +94,13 @@ tasks {
                 "-Xjsr305=strict",
                 "-Xjvm-default=enable",
                 "-Xassertions=jvm",
-                "-Xinline-classes",
                 "-Xstring-concat=indy-with-constants",
-                "-XXLanguage:+NewInference",
-                "-Xopt-in=kotlin.RequiresOptIn",
-                "-Xopt-in=kotlin.ExperimentalStdlibApi",
-                "-Xopt-in=kotlin.ExperimentalUnsignedTypes",
-                "-Xopt-in=kotlin.time.ExperimentalTime",
-                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+                "-Xallow-result-return-type",
+                "-Xstrict-java-nullability-assertions",
+                "-Xgenerate-strict-metadata-version",
+                "-Xemit-jvm-type-annotations",
                 "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
             )
         }
     }
@@ -82,7 +123,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.5.1")
-    implementation("moe.tlaster:precompose:0.1.2")
+    implementation("moe.tlaster:precompose:0.1.3")
     // Icons Packs
     listOf(
         "simple-icons",
@@ -112,6 +153,7 @@ dependencies {
     // https://github.com/DevSrSouza/svg-to-compose
     // https://github.com/TheMrCodes/Compose-Tab-Component
     // https://github.com/tehras/charts
+    // implementation("com.alialbaali.kamel:kamel-image:0.2.0")
 }
 
 compose.desktop {

@@ -27,10 +27,8 @@ import dev.suresh.gif.*
 import dev.suresh.theme.*
 import kotlinx.coroutines.*
 import java.awt.*
-
 import java.awt.dnd.*
 import java.net.*
-
 
 fun main() = Window(
     title = "Compose Desktop",
@@ -432,7 +430,6 @@ fun TopBar(name: String, scaffoldState: ScaffoldState) {
                     cs.launch {
                         scaffoldState.drawerState.open()
                     }
-
                 },
             ) {
                 Icon(imageVector = Icons.Rounded.ArrowBack, "Arrow")

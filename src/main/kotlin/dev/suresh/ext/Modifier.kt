@@ -58,5 +58,3 @@ fun main() = Window {
         }
     }
 }
-
-
