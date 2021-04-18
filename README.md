@@ -38,8 +38,9 @@ $ ./gradlew --stop && pkill -f KotlinCompileDaemon
 - [Jetpack Compose Source](https://github.com/androidx/androidx/tree/androidx-main/compose)
 - [Jetpack Compose AOSP](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/)
 - [Compose Release Notes](https://developer.android.com/jetpack/androidx/releases/compose)
-- [Compose Awesome](https://github.com/jetpack-compose/jetpack-compose-awesome)
+- [Compose for Desktop IDE Plugin](https://plugins.jetbrains.com/plugin/16541-compose-for-desktop-ide-support)  
 - [Compose Modifiers Playground](https://plugins.jetbrains.com/plugin/16417-compose-modifiers-playground)
+- [Compose Awesome](https://github.com/jetpack-compose/jetpack-compose-awesome)
 
 [0]: https://www.jetbrains.com/lp/compose
 
