@@ -5,11 +5,11 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-  id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha07"
+  id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha08"
   kotlin("jvm") version "1.4.32"
-  id("org.jetbrains.compose") version "0.4.0-build184"
+  id("org.jetbrains.compose") version "0.4.0-build185"
   id("com.github.ben-manes.versions") version "0.38.0"
-  id("com.diffplug.spotless") version "5.12.2"
+  id("com.diffplug.spotless") version "5.12.4"
 }
 
 group = "dev.suresh"
@@ -113,7 +113,7 @@ dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.materialIconsExtended)
   implementation("app.redwarp.gif:decoder:0.5.1")
-  implementation("moe.tlaster:precompose:0.1.3")
+  implementation("moe.tlaster:precompose:0.1.4")
   // Icons Packs
   listOf(
       "simple-icons",
@@ -129,7 +129,7 @@ dependencies {
       .forEach { implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.2.0") }
 
   testImplementation(kotlin("test-junit5"))
-  testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
 
   // implementation("com.google.accompanist:accompanist-flowlayout:0.7.0")
   // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
@@ -151,8 +151,6 @@ compose.desktop {
     jvmArgs(
         "--show-version",
         "--enable-preview",
-        "--add-opens",
-        "java.base/java.util=ALL-UNNAMED",
         "-Xms48m",
         "-XX:+PrintCommandLineFlags",
         "-XX:+UseZGC",
@@ -162,9 +160,11 @@ compose.desktop {
         "-Djdk.tracePinnedThreads=full",
         "-Djava.security.egd=file:/dev/./urandom",
         "-Dskiko.fps.enabled=true",
-        "-Dskiko.fps.count=200"
+        "-Dskiko.fps.periodSeconds=2.0",
+        "-Dskiko.fps.longFrames.show=true",
+        // "-Dskiko.renderApi=SOFTWARE",
         // "skiko.vsync.enabled=false",
-        // "-XX:NativeMemoryTracking=summary"
+        // "-XX:NativeMemoryTracking=summary",
         )
     nativeDistributions {
       targetFormats(Dmg, Exe, Deb)

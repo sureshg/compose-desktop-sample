@@ -23,11 +23,9 @@ import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.window.*
-import dev.suresh.gif.*
 import dev.suresh.theme.*
 import java.awt.*
 import java.awt.dnd.*
-import java.net.*
 import kotlinx.coroutines.*
 
 fun main() = Window(title = "Compose Desktop", centered = true) { App() }
@@ -63,14 +61,6 @@ fun Test(name: String = "Kotlin") {
               }
             }
           }
-
-          val gif1 = remember {
-            AnimatedGif.fromURL(
-                URL(
-                    "https://user-images.githubusercontent.com/356994/100579048-4e006a80-3298-11eb-8ea0-a7205221f389.gif"))
-          }
-
-          AnimatedGif(gif1, Modifier.border(BorderStroke(2.dp, Color.Gray)))
         }
       }
       Box(modifier = Modifier.fillMaxSize(1f)) {

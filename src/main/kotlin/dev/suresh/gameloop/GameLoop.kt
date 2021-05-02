@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
 import compose.icons.*
 import compose.icons.simpleicons.*
+import dev.suresh.gif.*
 import dev.suresh.jfr.*
 import kotlinx.coroutines.*
 
@@ -74,6 +75,15 @@ fun FrameRate() {
                       }),
           color = Color.Red)
     }
+
+    GifAnimation(
+        modifier = Modifier.size(50.dp),
+        loadGif(
+            "https://user-images.githubusercontent.com/356994/100579048-4e006a80-3298-11eb-8ea0-a7205221f389.gif"))
+    GifAnimation(
+        modifier = Modifier.size(50.dp),
+        loadGif(
+            "https://raw.githubusercontent.com/JetBrains/skija/ccf303ebcf926e5ef000fc42d1a6b5b7f1e0b2b5/examples/scenes/images/codecs/animated.gif"))
   }
 
   Box {
@@ -101,6 +111,7 @@ fun main(args: Array<String>) {
   println("Args " + args.getOrElse(0) { "1.0" })
   Window {
     FrameRate()
+
     Column(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)) {
       val game = remember { Game() }
       var effect by remember { mutableStateOf(true) }
