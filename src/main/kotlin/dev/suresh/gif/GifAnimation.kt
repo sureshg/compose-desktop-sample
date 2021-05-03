@@ -3,10 +3,12 @@
 package dev.suresh.gif
 
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.*
+import androidx.compose.ui.input.pointer.*
 import java.net.*
 import kotlinx.coroutines.*
 import org.jetbrains.skija.*
@@ -21,7 +23,7 @@ fun GifAnimation(modifier: Modifier, codec: Codec) {
     }
   }
 
-  Canvas(modifier) {
+  Canvas(modifier.pointerInput(Unit) { detectTapGestures(onTap = { println("Clicked on $it") }) }) {
     scale(scale = 0.5f) {
       rotate(0f) {
         translate(5f, 5f) {
