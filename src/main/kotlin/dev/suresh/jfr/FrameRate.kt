@@ -9,12 +9,12 @@ class FrameRate(
     @Label("FPS") private var fRate: Int,
 ) : Event() {
 
-  /** Generate an FPS event. Not thread safe. */
-  var fps: Int
-    get() = fRate
-    set(fps) {
-      begin()
-      this.fRate = fps
-      commit()
-    }
+    /** Generate an FPS event. Not thread safe. */
+    var fps: Int
+        get() = fRate
+        set(fps) {
+            begin()
+            this.fRate = fps
+            commit()
+        }
 }

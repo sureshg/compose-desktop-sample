@@ -37,6 +37,7 @@ $ ./gradlew --stop && pkill -f KotlinCompileDaemon
 - [Compose for Desktop IDE Plugin](https://plugins.jetbrains.com/plugin/16541-compose-for-desktop-ide-support)
 - [Compose Modifiers Playground](https://plugins.jetbrains.com/plugin/16417-compose-modifiers-playground)
 - [Theme-Configurator](https://github.com/supertechninja/Jetpack-Compose-Theme-Configurator)
+- [Intellij Plugin Template](https://github.com/JetBrains/compose-jb/tree/master/examples/intelliJPlugin)
 
 
 ## Resources

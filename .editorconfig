@@ -1,0 +1,8 @@
+# http://editorconfig.org
+root = true
+
+[*.{kt,kts}]
+disabled_rules=no-wildcard-imports
+
+[**/test/**.kt]
+ktlint_ignore_back_ticked_identifier=true

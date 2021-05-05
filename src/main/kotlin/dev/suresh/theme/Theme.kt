@@ -8,11 +8,11 @@ fun MyTheme(
     darkTheme: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-  val colors =
-      when (darkTheme) {
-        true -> DarkColorPalette
-        else -> LightColorPalette
-      }
+    val colors =
+        when (darkTheme) {
+            true -> DarkColorPalette
+            else -> LightColorPalette
+        }
 
-  MaterialTheme(colors = colors, typography = typography, shapes = shapes) { content() }
+    MaterialTheme(colors = colors, typography = typography, shapes = shapes) { content() }
 }
