@@ -91,6 +91,10 @@ fun FrameRate() {
                 "https://raw.githubusercontent.com/JetBrains/skija/ccf303ebcf926e5ef000fc42d1a6b5b7f1e0b2b5/examples/scenes/images/codecs/animated.gif"
             )
         )
+        GifAnimation(
+            modifier = Modifier.size(50.dp),
+            loadGif("https://s3.gifyu.com/images/brain.gif")
+        )
     }
 
     Box {

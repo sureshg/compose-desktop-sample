@@ -6,9 +6,9 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha08"
     kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.compose") version "0.4.0-build188"
+    id("org.jetbrains.compose") version "0.4.0-build198"
     id("com.github.ben-manes.versions") version "0.38.0"
-    id("com.diffplug.spotless") version "5.12.4"
+    id("com.diffplug.spotless") version "5.12.5"
 }
 
 group = "dev.suresh"
@@ -101,7 +101,7 @@ tasks {
     test { useJUnitPlatform() }
 
     wrapper {
-        gradleVersion = "7.0"
+        gradleVersion = "7.0.2"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -112,7 +112,7 @@ tasks {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
-    implementation("app.redwarp.gif:decoder:0.5.1")
+    implementation("app.redwarp.gif:decoder:0.6.0")
     implementation("moe.tlaster:precompose:0.1.4")
     // Icons Packs
     listOf(
