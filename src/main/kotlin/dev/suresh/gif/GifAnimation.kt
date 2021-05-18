@@ -63,7 +63,7 @@ class GifAnimation(private val codec: Codec) {
     private val bitMap = Bitmap().apply { allocPixels(codec.imageInfo) }
 
     /** Animation duration in nanos */
-    private val animFrameDurations = codec.framesInfo.map { it.duration * 1_000_000 }
+    private val animFrameDurations = codec.framesInfo.map { it.duration * 1_000_000L }
 
     /** Total animation duration in nano seconds. */
     private val animDuration = animFrameDurations.sum()
@@ -99,6 +99,6 @@ class GifAnimation(private val codec: Codec) {
     /** Reads [currFrame] into [bitMap] and draw into the [canvas]. */
     fun draw(canvas: Canvas) {
         codec.readPixels(bitMap, currFrame)
-        canvas.drawBitmap(bitMap, 0f, 0f)
+        canvas.drawImage(Image.makeFromBitmap(bitMap), 0f, 0f)
     }
 }
