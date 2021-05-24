@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-    id("com.google.devtools.ksp") version "1.4.32-1.0.0-alpha08"
-    kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.compose") version "0.4.0-build198"
+    id("com.google.devtools.ksp") version "1.5.0-1.0.0-alpha10"
+    kotlin("jvm") version "1.5.0"
+    id("org.jetbrains.compose") version "0.4.0-build209"
     id("com.github.ben-manes.versions") version "0.38.0"
     id("com.diffplug.spotless") version "5.12.5"
 }
@@ -68,7 +68,12 @@ tasks {
             isIncremental = true
             isFork = true
             compilerArgs.addAll(
-                listOf("-Xlint:all", "-parameters", "--add-opens", "java.base/java.util=ALL-UNNAMED")
+                listOf(
+                    "-Xlint:all",
+                    "-parameters",
+                    "--add-opens",
+                    "java.base/java.util=ALL-UNNAMED"
+                )
             )
         }
     }
@@ -76,8 +81,7 @@ tasks {
     withType<KotlinCompile>().configureEach {
         kotlinOptions {
             verbose = true
-            jvmTarget = "15"
-            useIR = true
+            jvmTarget = "16"
             javaParameters = true
             incremental = true
             freeCompilerArgs +=
@@ -109,6 +113,35 @@ tasks {
     defaultTasks("clean", "tasks", "--all")
 }
 
+/**
+ * Sets the Github Action output as package name and path to use in other steps.
+ */
+gradle.buildFinished {
+    val pkgFormat =
+        compose.desktop.application.nativeDistributions.targetFormats.firstOrNull { it.isCompatibleWithCurrentOS }
+    val nativePkg = buildDir.resolve("compose/binaries").findPkg(pkgFormat?.fileExt)
+    val jarPkg = buildDir.resolve("compose/jars").findPkg(".jar")
+    nativePkg.ghActionOutput("app_pkg")
+    jarPkg.ghActionOutput("uber_jar")
+}
+
+fun File.findPkg(format: String?) = when (format != null) {
+    true -> walk().firstOrNull { it.isFile && it.name.endsWith(format, ignoreCase = true) }
+    else -> null
+}
+
+fun File?.ghActionOutput(prefix: String) = this?.let {
+    when (System.getenv("GITHUB_ACTIONS").toBoolean()) {
+        true -> println(
+            """
+        ::set-output name=${prefix}_name::${this.name}
+        ::set-output name=${prefix}_path::${this.absolutePath}   
+            """.trimIndent()
+        )
+        else -> println("$prefix: $this")
+    }
+}
+
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
@@ -126,8 +159,9 @@ dependencies {
         "line-awesome",
         "erikflowers-weather-icons",
         "css-gg"
-    )
-        .forEach { implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.2.0") }
+    ).forEach {
+        implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.2.0")
+    }
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
@@ -174,7 +208,13 @@ compose.desktop {
             description = "Compose desktop playground!"
             copyright = "© 2020 Suresh"
             vendor = "Suresh"
-            modules("jdk.jfr", "jdk.management.jfr", "jdk.management.agent", "jdk.crypto.ec", "java.xml")
+            modules(
+                "jdk.jfr",
+                "jdk.management.jfr",
+                "jdk.management.agent",
+                "jdk.crypto.ec",
+                "java.xml"
+            )
 
             // sourceSets.main.get().resources.srcDirs.first()
             val resRoot = project.file("src/main/resources")
