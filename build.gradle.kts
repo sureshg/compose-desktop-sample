@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
     id("com.google.devtools.ksp") version "1.5.0-1.0.0-alpha10"
-    kotlin("jvm") version "1.5.0"
+    kotlin("jvm") version "1.5.10"
     id("org.jetbrains.compose") version "0.4.0-build209"
     id("com.github.ben-manes.versions") version "0.38.0"
     id("com.diffplug.spotless") version "5.12.5"
