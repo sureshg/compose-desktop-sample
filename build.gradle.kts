@@ -146,7 +146,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.6.0")
-    implementation("moe.tlaster:precompose:0.1.4")
+    implementation("moe.tlaster:precompose:0.1.5")
     // Icons Packs
     listOf(
         "simple-icons",
