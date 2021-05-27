@@ -4,11 +4,20 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "gradle"
+      - "dependencies"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "github-actions"
+      - "dependencies"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "docker"
+      - "dependencies"

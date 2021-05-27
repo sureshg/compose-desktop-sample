@@ -1,6 +1,10 @@
 # Compose Desktop Playground
 
-[![Compose Release](https://img.shields.io/github/v/release/JetBrains/compose-jb?color=orange&include_prereleases&label=latest%20build&logo=apache-rocketmq&logoColor=orange&style=for-the-badge)](https://github.com/JetBrains/compose-jb/releases)
+[![Compose Release][cfd_img]][cfd_url]
+[![GitHub Workflow Status][shieldio_img]][gha_url]
+[![Kotlin release][kt_img]][kt_url]
+[![OpenJDK Version][java_img]][java_url]
+[![Style guide][sty_img]][sty_url]
 
 [Jetbrains Compose][0] desktop playground!
 
@@ -27,6 +31,9 @@ $ ./gradlew suggestRuntimeModules
 ### Troubleshooting
 
 ```bash
+# Clear all permission attributes (MacOS). This is required for unsigned app to work on MacOS
+$ sudo xattr -cr /Applications/compose-desktop-sample.app
+
 # Stop Gradle daemon after switching the JDK
 $ ./gradlew --stop && pkill -f KotlinCompileDaemon
 
@@ -52,3 +59,21 @@ $ ./gradlew --stop && pkill -f KotlinCompileDaemon
 [1]: https://filiph.github.io/raytracer/
 [2]: https://github.com/filiph/filiphnet/blob/master/tool/spanify.dart
 [3]: https://github.com/RayTracing/raytracing.github.io
+
+[github-packages]: https://github.com/sureshg/compose-desktop-sample/packages
+
+[cfd_url]: https://github.com/JetBrains/compose-jb/releases
+[cfd_img]: https://img.shields.io/github/v/release/JetBrains/compose-jb?color=3cdc84&include_prereleases&label=Compose%20Desktop&logo=apache-rocketmq&logoColor=3cdc84&style=for-the-badge
+
+[kt_url]: https://github.com/JetBrains/kotlin/releases/latest
+[kt_img]: https://img.shields.io/github/v/release/Jetbrains/kotlin?color=7f53ff&label=Kotlin&logo=kotlin&logoColor=7f53ff&style=for-the-badge
+
+[java_url]: https://jdk.java.net/
+[java_img]: https://img.shields.io/badge/OpenJDK-jdk--17-ea791d?logo=java&style=for-the-badge&logoColor=ea791d
+
+[gha_url]: https://github.com/sureshg/compose-desktop-sample/actions/workflows/build.yml
+[gha_img]: https://github.com/sureshg/compose-desktop-sample/actions/workflows/build.yml/badge.svg?branch=main
+[shieldio_img]: https://img.shields.io/github/workflow/status/sureshg/compose-desktop-sample/Compose%20Desktop%20Build/main?color=green&label=Build&logo=Github-Actions&logoColor=green&style=for-the-badge
+
+[sty_url]: https://kotlinlang.org/docs/coding-conventions.html
+[sty_img]: https://img.shields.io/badge/style-Kotlin--Official-40c4ff.svg?style=for-the-badge&logo=kotlin&logoColor=40c4ff

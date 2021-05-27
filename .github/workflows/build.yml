@@ -1,9 +1,14 @@
 name: Compose Desktop Build
 
+env:
+  GITHUB_DEPLOY: 'false'
+
 on:
   push:
     branches:
       - main
+    tags:
+      - 'v*.*.*'
     paths-ignore:
       - 'docs/**'
       - LICENSE
@@ -17,6 +22,12 @@ on:
     - cron: "0 0 * * *"
 
   workflow_dispatch:
+  repository_dispatch:
+    types: [ app-release ]
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   build:
@@ -42,7 +53,7 @@ jobs:
       - name: Check out the source code
         uses: actions/checkout@v2
 
-      - name: Download OpenJDK ${{ matrix.jdk }}
+      - name: Download ${{ matrix.os }} OpenJDK ${{ matrix.jdk }}
         id: download-jdk
         uses: sormuras/download-jdk@v1
         with:
@@ -51,7 +62,7 @@ jobs:
       - name: Set up OpenJDK ${{ matrix.jdk }}
         id: setup-java
         uses: actions/setup-java@v2
-        if: success()
+        if: always() && steps.download-jdk.outcome == 'success'
         with:
           distribution: jdkfile
           java-version: ${{ env.JDK_VERSION }}
@@ -69,8 +80,15 @@ jobs:
 
       - name: Gradle Build
         id: gradle-build
-        shell: bash
         run: ./gradlew packageUberJarForCurrentOS package
+
+      - name: Deploy to GitHub Packages (Linux)
+        if: env.GITHUB_DEPLOY == 'true' && runner.os == 'Linux'
+        run: |
+          ./gradlew deploy
+        env:
+          GITHUB_USER: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Uploading ${{ matrix.os }} uber jar
         if: steps.gradle-build.outcome == 'success'
@@ -89,3 +107,26 @@ jobs:
           path: |
             ${{ steps.gradle-build.outputs.app_pkg_path }}
           if-no-files-found: error
+
+  release:
+    name: Release new version.
+    needs: [ build ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download the build artifacts
+        uses: actions/download-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/')
+
+      - name: Github Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            **/*.jar
+            **/*.deb
+            **/*.exe
+            **/*.dmg
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

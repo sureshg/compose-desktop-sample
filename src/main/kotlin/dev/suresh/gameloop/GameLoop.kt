@@ -17,8 +17,6 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
-import compose.icons.*
-import compose.icons.simpleicons.*
 import dev.suresh.gif.*
 import dev.suresh.jfr.*
 import kotlinx.coroutines.*
@@ -53,12 +51,12 @@ fun FrameRate() {
 
     Column(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.TopCenter)) {
         Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-            Icon(
+            /*Icon(
                 imageVector = SimpleIcons.Kotlin,
                 contentDescription = "",
                 tint = MaterialTheme.colors.primary,
                 modifier = Modifier.align(Alignment.CenterVertically)
-            )
+            )*/
             Text(
                 "Frame rate: $frameRate fps",
                 modifier =
@@ -112,7 +110,7 @@ fun FrameRate() {
 
         Spacer(Modifier.padding(horizontal = 30.dp))
         VerticalScrollbar(
-            adapter = rememberScrollbarAdapter(state, 100, 20.dp),
+            adapter = rememberScrollbarAdapter(state),
             modifier = Modifier.align(Alignment.Center),
         )
     }

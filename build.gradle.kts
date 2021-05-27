@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
     id("com.google.devtools.ksp") version "1.5.0-1.0.0-alpha10"
-    kotlin("jvm") version "1.5.0"
-    id("org.jetbrains.compose") version "0.4.0-build209"
+    kotlin("jvm") version "1.5.10"
+    id("org.jetbrains.compose") version "0.4.0-build211"
     id("com.github.ben-manes.versions") version "0.38.0"
     id("com.diffplug.spotless") version "5.12.5"
 }
@@ -144,9 +144,8 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation(compose.materialIconsExtended)
     implementation("app.redwarp.gif:decoder:0.6.0")
-    implementation("moe.tlaster:precompose:0.1.4")
+    implementation("moe.tlaster:precompose:0.1.5")
     // Icons Packs
     listOf(
         "simple-icons",
@@ -166,6 +165,7 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
 
+    // implementation(compose.materialIconsExtended)
     // implementation("com.google.accompanist:accompanist-flowlayout:0.7.0")
     // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
     // implementation("com.zachklipp.compose-richtext:richtext-ui:0.2.0")

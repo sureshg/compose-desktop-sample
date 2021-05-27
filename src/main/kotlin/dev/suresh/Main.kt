@@ -223,9 +223,7 @@ fun ScrollBar() {
         HorizontalScrollbar(
             modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth(),
             adapter =
-            rememberScrollbarAdapter(
-                scrollState = stateHorizontal, itemCount = cols.size, averageItemSize = 80.dp
-            )
+            rememberScrollbarAdapter(scrollState = stateHorizontal)
         )
     }
 }
