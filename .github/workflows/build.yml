@@ -10,10 +10,10 @@ on:
     tags:
       - 'v*.*.*'
     paths-ignore:
-      - 'docs/**'
       - LICENSE
       - README.md
-      - .github/config/labels.yml
+      - 'docs/**'
+      - '.github/config/labels.yml'
 
   pull_request:
     branches:
