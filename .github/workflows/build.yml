@@ -112,21 +112,25 @@ jobs:
   release:
     name: Release new version.
     needs: [ build ]
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out the source code
+        uses: actions/checkout@v2
+
       - name: Download the build artifacts
         uses: actions/download-artifact@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          path: release-artifacts
 
       - uses: ffurrer2/extract-release-notes@v1.7.0
         id: extract_release_notes
-        if: startsWith(github.ref, 'refs/tags/') && false
+        if: ${{ false }}
 
       - name: Release Changelog Builder
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v1.8.1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           commitMode: true
         env:
@@ -134,11 +138,10 @@ jobs:
 
       - name: Github Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           body: ${{steps.build_changelog.outputs.changelog}}
           files: |
-            ${{ github.workspace }}/**
+            ${{ github.workspace }}/release-artifacts/**
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
