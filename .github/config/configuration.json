@@ -39,6 +39,13 @@
   ],
   "sort": "ASC",
   "template": "${{CHANGELOG}}",
-  "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
-  "empty_template": "- no changes"
+  "pr_template": "${{TITLE}}",
+  "empty_template": "- no changes",
+  "tag_resolver": {
+    "method": "sort"
+  },
+  "exclude_merge_branches": [
+    "merge pull request",
+    "Merge pull request"
+  ]
 }
