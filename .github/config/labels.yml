@@ -3,7 +3,7 @@
   color: d73a4a
 - name: doc
   description: Improvements to documentation
-  color: 0075ca
+  color: d4c5f9
 - name: duplicate
   description: This issue or pull request already exists
   color: cfd3d7
@@ -12,7 +12,7 @@
   description: New features
 - name: enhancement
   description: Enhancement of existing functionality
-  color: 0366d6
+  color: 84b6eb
 - name: deprecated
   description: Deprecating API
   color: f4c21d
@@ -34,3 +34,18 @@
 - name: compose
   description: Jetbrains Compose issues
   color: 3cdc84
+- name: help
+  description: Help Wanted
+  color: 0e8a16
+- name: question
+  description: Questions and discussions
+  color: cc317c
+- name: dependencies
+  description: Changes that affect dependencies
+  color: 5319e7
+- name: docker
+  description: Container changes
+  color: e99695
+- name: github-actions
+  description: Github action changes
+  color: ff7619
