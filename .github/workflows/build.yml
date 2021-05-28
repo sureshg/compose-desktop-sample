@@ -58,16 +58,16 @@ jobs:
           fetch-depth: 100
 
       - name: Build Changelog
-        id: build_changelog
+        id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
         with:
-          commitMode: true
           configuration: ".github/config/configuration.json"
+          commitMode: true
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo "${{ steps.build_changelog.outputs.changelog }}"
+      - run: echo "${{ steps.github_release.outputs.changelog }}"
 
       - name: Download ${{ matrix.os }} OpenJDK ${{ matrix.jdk }}
         id: download-jdk
@@ -157,7 +157,7 @@ jobs:
       - name: Github Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ steps.build_changelog.outputs.changelog }}
+          body: ${{steps.github_release.outputs.changelog}}
           prerelease: ${{ contains(github.event.inputs.version, '-rc') || contains(github.event.inputs.version, '-b') || contains(github.event.inputs.version, '-a') }}
           files: |
             ${{ github.workspace }}/release-artifacts/**
