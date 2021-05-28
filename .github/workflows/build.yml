@@ -118,15 +118,24 @@ jobs:
         uses: actions/download-artifact@v2
         if: startsWith(github.ref, 'refs/tags/')
 
+      - uses: ffurrer2/extract-release-notes@v1.7.0
+        id: extract_release_notes
+        if: startsWith(github.ref, 'refs/tags/') && false
+
+      - name: Release Changelog Builder
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v1.8.1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Github Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          body: ${{steps.build_changelog.outputs.changelog}}
           files: |
-            **/*.jar
-            **/*.deb
-            **/*.exe
-            **/*.dmg
+            ${{ env.GITHUB_WORKSPACE }}/**
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
