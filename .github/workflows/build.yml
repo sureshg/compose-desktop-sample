@@ -54,6 +54,17 @@ jobs:
       - name: Check out the source code
         uses: actions/checkout@v2
 
+      - name: Release Changelog Builder
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v1.8.1
+        with:
+          commitMode: true
+          configuration: ".github/config/configuration.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: echo "${{ steps.build_changelog.outputs.changelog }}"
+
       - name: Download ${{ matrix.os }} OpenJDK ${{ matrix.jdk }}
         id: download-jdk
         uses: sormuras/download-jdk@v1
@@ -109,16 +120,7 @@ jobs:
             ${{ steps.gradle-build.outputs.app_pkg_path }}
           if-no-files-found: error
 
-      - name: Release Changelog Builder
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v1.8.1
-        with:
-          commitMode: true
-          configuration: ".github/config/configuration.json"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo "${{ steps.build_changelog.outputs.changelog }}"
 
   release:
     name: Release new version.
