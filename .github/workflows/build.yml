@@ -55,7 +55,7 @@ jobs:
       - name: Check out the source code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 100
+          fetch-depth: 0
 
       - name: Build Changelog
         id: github_release
