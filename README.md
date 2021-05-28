@@ -31,7 +31,7 @@ $ ./gradlew suggestRuntimeModules
 ### Troubleshooting
 
 ```bash
-# Clear all permission attributes (MacOS). This is required for unsigned app to work on MacOS
+# Clear all app permission attributes on MacOS. This is required for unsigned app to work on MacOS
 $ sudo xattr -cr /Applications/compose-desktop-sample.app
 
 # Stop Gradle daemon after switching the JDK
