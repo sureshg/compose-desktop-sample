@@ -8,7 +8,7 @@ on:
     branches:
       - main
     tags:
-      - 'v*.*.*'
+      - '*'
     paths-ignore:
       - LICENSE
       - README.md
@@ -54,20 +54,6 @@ jobs:
     steps:
       - name: Check out the source code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1.8.2
-        with:
-          configuration: ".github/config/configuration.json"
-          commitMode: true
-          ignorePreReleases: ${{ !contains(github.ref, '-') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - run: echo "${{ steps.github_release.outputs.changelog }}"
 
       - name: Download ${{ matrix.os }} OpenJDK ${{ matrix.jdk }}
         id: download-jdk
@@ -94,17 +80,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Gradle Build
-        id: gradle-build
-        run: ./gradlew packageUberJarForCurrentOS package
-
       - name: Deploy to GitHub Packages (Linux)
+        id: gradle-deploy
         if: env.GITHUB_DEPLOY == 'true' && runner.os == 'Linux'
         run: |
           ./gradlew deploy
         env:
           GITHUB_USER: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Gradle Build
+        id: gradle-build
+        run: ./gradlew packageUberJarForCurrentOS package
 
       - name: Uploading ${{ matrix.os }} uber jar
         if: steps.gradle-build.outcome == 'success'
@@ -125,7 +112,6 @@ jobs:
           if-no-files-found: error
 
 
-
   release:
     name: Release new version.
     needs: [ build ]
@@ -135,17 +121,20 @@ jobs:
     steps:
       - name: Check out the source code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - uses: ffurrer2/extract-release-notes@v1.7.0
         id: extract_release_notes
         if: ${{ false }}
 
-      - name: Release Changelog Builder
-        id: build_changelog
+      - name: Build Changelog
+        id: github_release
         uses: mikepenz/release-changelog-builder-action@v1.8.2
         with:
-          commitMode: true
           configuration: ".github/config/configuration.json"
+          commitMode: true
+          ignorePreReleases: ${{ !contains(github.ref, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -157,7 +146,7 @@ jobs:
       - name: Github Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{steps.github_release.outputs.changelog}}
+          body: ${{ steps.github_release.outputs.changelog }}
           prerelease: ${{ contains(github.event.inputs.version, '-rc') || contains(github.event.inputs.version, '-b') || contains(github.event.inputs.version, '-a') }}
           files: |
             ${{ github.workspace }}/release-artifacts/**
