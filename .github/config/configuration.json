@@ -3,7 +3,7 @@
     {
       "title": "## 🚀 Features",
       "labels": [
-        "feat"
+        "feat:"
       ]
     },
     {
@@ -38,14 +38,9 @@
     }
   ],
   "sort": "ASC",
+  "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
   "pr_template": "${{TITLE}}",
   "empty_template": "- no changes",
-  "label_extractor": [
-    {
-      "pattern": "(.+): (.+)",
-      "target": "$1"
-    }
-  ],
   "exclude_merge_branches": [
     "merge pull request",
     "Merge pull request"
