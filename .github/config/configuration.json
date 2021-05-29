@@ -9,41 +9,43 @@
     {
       "title": "## 🐛 Fixes",
       "labels": [
-        "fix"
+        "fix:"
       ]
     },
     {
       "title": "🧰 Maintenance",
       "labels": [
-        "chore"
+        "chore:"
       ]
     },
     {
       "title": "## 🧪 Tests",
       "labels": [
-        "test"
+        "test:"
       ]
     },
     {
       "title": "## 🖍️ Documentation",
       "labels": [
-        "doc"
+        "doc:"
       ]
     },
     {
       "title": "## 📦 Dependencies",
       "labels": [
-        "dependencies"
+        "dependencies:"
       ]
     }
   ],
   "sort": "ASC",
-  "template": "${{CHANGELOG}}",
   "pr_template": "${{TITLE}}",
   "empty_template": "- no changes",
-  "tag_resolver": {
-    "method": "sort"
-  },
+  "label_extractor": [
+    {
+      "pattern": "(.+): (.+)",
+      "target": "$1"
+    }
+  ],
   "exclude_merge_branches": [
     "merge pull request",
     "Merge pull request"

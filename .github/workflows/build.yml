@@ -59,7 +59,7 @@ jobs:
 
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
+        uses: mikepenz/release-changelog-builder-action@v1.8.2
         with:
           configuration: ".github/config/configuration.json"
           commitMode: true
@@ -142,7 +142,7 @@ jobs:
 
       - name: Release Changelog Builder
         id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v1.8.1
+        uses: mikepenz/release-changelog-builder-action@v1.8.2
         with:
           commitMode: true
           configuration: ".github/config/configuration.json"
