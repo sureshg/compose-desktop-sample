@@ -134,8 +134,8 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
     when (System.getenv("GITHUB_ACTIONS").toBoolean()) {
         true -> println(
             """
-        ::set-output name=${prefix}_name::${this.name}
-        ::set-output name=${prefix}_path::${this.absolutePath}   
+        ::set-output name=${prefix}_name::${it.name}
+        ::set-output name=${prefix}_path::${it.absolutePath}   
             """.trimIndent()
         )
         else -> println("$prefix: $this")
