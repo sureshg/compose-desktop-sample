@@ -81,7 +81,7 @@ tasks {
     withType<KotlinCompile>().configureEach {
         kotlinOptions {
             verbose = true
-            jvmTarget = "11"
+            jvmTarget = "16"
             javaParameters = true
             incremental = true
             freeCompilerArgs +=
