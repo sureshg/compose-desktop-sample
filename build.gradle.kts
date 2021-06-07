@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     id("com.google.devtools.ksp") version "1.5.10-1.0.0-beta01"
     kotlin("jvm") version "1.5.10"
-    id("org.jetbrains.compose") version "0.4.0-rc2"
+    id("org.jetbrains.compose") version "0.4.0"
     id("com.github.ben-manes.versions") version "0.39.0"
     id("com.diffplug.spotless") version "5.12.5"
 }
@@ -71,8 +71,8 @@ tasks {
                 listOf(
                     "-Xlint:all",
                     "-parameters",
-                    "--add-opens",
-                    "java.base/java.util=ALL-UNNAMED"
+                    "--add-exports",
+                    "java.base/sun.nio.ch=ALL-UNNAMED"
                 )
             )
         }
@@ -81,7 +81,7 @@ tasks {
     withType<KotlinCompile>().configureEach {
         kotlinOptions {
             verbose = true
-            jvmTarget = "16"
+            jvmTarget = "11"
             javaParameters = true
             incremental = true
             freeCompilerArgs +=
@@ -90,11 +90,11 @@ tasks {
                     "-Xjsr305=strict",
                     "-Xjvm-default=enable",
                     "-Xassertions=jvm",
-                    "-Xstring-concat=indy-with-constants",
                     "-Xallow-result-return-type",
                     "-Xstrict-java-nullability-assertions",
                     "-Xgenerate-strict-metadata-version",
                     "-Xemit-jvm-type-annotations",
+                    "-Xjavac-arguments=\"--add-exports java.base/sun.nio.ch=ALL-UNNAMED\"",
                     "-P",
                     "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
                 )
@@ -105,7 +105,7 @@ tasks {
     test { useJUnitPlatform() }
 
     wrapper {
-        gradleVersion = "7.0.2"
+        gradleVersion = "7.1-rc-1"
         distributionType = Wrapper.DistributionType.ALL
     }
 
@@ -145,7 +145,7 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 dependencies {
     implementation(compose.desktop.currentOs)
     implementation("app.redwarp.gif:decoder:0.6.0")
-    implementation("moe.tlaster:precompose:0.1.5")
+    implementation("moe.tlaster:precompose:0.2.2")
     // Icons Packs
     listOf(
         "simple-icons",
