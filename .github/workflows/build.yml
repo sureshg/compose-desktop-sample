@@ -124,7 +124,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: ffurrer2/extract-release-notes@v1.7.0
+      - uses: ffurrer2/extract-release-notes@v1.8.0
         id: extract_release_notes
         if: ${{ false }}
 
