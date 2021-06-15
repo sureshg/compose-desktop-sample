@@ -69,7 +69,7 @@ $ ./gradlew --stop && pkill -f KotlinCompileDaemon
 [kt_img]: https://img.shields.io/github/v/release/Jetbrains/kotlin?color=7f53ff&label=Kotlin&logo=kotlin&logoColor=7f53ff&style=for-the-badge
 
 [java_url]: https://jdk.java.net/
-[java_img]: https://img.shields.io/badge/OpenJDK-jdk--17-ea791d?logo=java&style=for-the-badge&logoColor=ea791d
+[java_img]: https://img.shields.io/badge/OpenJDK-jdk--18-ea791d?logo=java&style=for-the-badge&logoColor=ea791d
 
 [gha_url]: https://github.com/sureshg/compose-desktop-sample/actions/workflows/build.yml
 [gha_img]: https://github.com/sureshg/compose-desktop-sample/actions/workflows/build.yml/badge.svg?branch=main

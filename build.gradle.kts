@@ -4,16 +4,16 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-    id("com.google.devtools.ksp") version "1.5.10-1.0.0-beta01"
+    id("com.google.devtools.ksp") version "1.5.10-1.0.0-beta02"
     kotlin("jvm") version "1.5.10"
-    id("org.jetbrains.compose") version "0.4.0"
+    id("org.jetbrains.compose") version "0.5.0-build225"
     id("com.github.ben-manes.versions") version "0.39.0"
-    id("com.diffplug.spotless") version "5.12.5"
+    id("com.diffplug.spotless") version "5.13.0"
 }
 
 group = "dev.suresh"
 
-version = "1.1.1"
+version = "1.2.0"
 
 kotlin {
     // explicitApi()
@@ -105,7 +105,7 @@ tasks {
     test { useJUnitPlatform() }
 
     wrapper {
-        gradleVersion = "7.1-rc-1"
+        gradleVersion = "7.1"
         distributionType = Wrapper.DistributionType.ALL
     }
 
