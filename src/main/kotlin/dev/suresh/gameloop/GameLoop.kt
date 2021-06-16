@@ -15,11 +15,14 @@ import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.input.pointer.*
+import androidx.compose.ui.platform.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
 import dev.suresh.gif.*
 import dev.suresh.jfr.*
 import kotlinx.coroutines.*
+import java.io.*
+import javax.swing.*
 
 val jfrEvent = FrameRate(0)
 
@@ -76,23 +79,6 @@ fun FrameRate() {
                 color = Color.Red
             )
         }
-
-        GifAnimation(
-            modifier = Modifier.size(50.dp),
-            loadGif(
-                "https://user-images.githubusercontent.com/356994/100579048-4e006a80-3298-11eb-8ea0-a7205221f389.gif"
-            )
-        )
-        GifAnimation(
-            modifier = Modifier.size(50.dp),
-            loadGif(
-                "https://raw.githubusercontent.com/JetBrains/skija/ccf303ebcf926e5ef000fc42d1a6b5b7f1e0b2b5/examples/scenes/images/codecs/animated.gif"
-            )
-        )
-        GifAnimation(
-            modifier = Modifier.size(50.dp),
-            loadGif("https://s3.gifyu.com/images/brain.gif")
-        )
     }
 
     Box {
@@ -116,6 +102,78 @@ fun FrameRate() {
     }
 }
 
+/** Modifier extensions. */
+fun Modifier.outline(error: Boolean): Modifier = composed {
+    when {
+        error -> border(width = 1.dp, color = Color.Red, shape = RoundedCornerShape(3.dp))
+        else -> this
+    }
+}
+
+@Composable
+fun ScreenShot() {
+    var save by remember { mutableStateOf(false) }
+    Button(
+        onClick = {
+            save = true
+        }
+    ) {
+        Text("Screenshot")
+    }
+
+    if (save) {
+        SwingUtilities.invokeLater {
+            println("Saving the image!")
+            // val appWindow = LocalAppWindow.current
+            val window = TestComposeWindow(width = 1024, height = 768)
+            window.setContent {
+                Column {
+                    Text("Hello text", modifier = Modifier.outline(true).padding(8.dp))
+
+                    Column {
+                        TabRow(selectedTabIndex = 0, Modifier.height(48.dp)) {
+                            Tab(
+                                selected = true,
+                                onClick = {},
+                                enabled = true,
+                                modifier = Modifier.fillMaxHeight()
+                            ) {
+                                Text("Tab 1", Modifier.padding(3.dp), textAlign = TextAlign.Center)
+                            }
+                            Tab(
+                                selected = false,
+                                onClick = {},
+                                enabled = true,
+                                modifier = Modifier.fillMaxHeight()
+                            ) {
+                                Text(
+                                    "Search: Result",
+                                    Modifier.padding(3.dp),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Tab(
+                                selected = false,
+                                onClick = {},
+                                enabled = true,
+                                modifier = Modifier.fillMaxHeight()
+                            ) {
+                                Text("Tab 3", Modifier.padding(3.dp), textAlign = TextAlign.Center)
+                            }
+                        }
+                    }
+                }
+            }
+            File("${System.getProperty("user.home")}/Desktop/screenshot.png").writeBytes(
+                window.surface.makeImageSnapshot().encodeToData()!!.bytes
+            )
+            window.dispose()
+            println("Done!")
+            save = false
+        }
+    }
+}
+
 fun main(args: Array<String>) {
     println("Args " + args.getOrElse(0) { "1.0" })
     Window {
@@ -126,6 +184,7 @@ fun main(args: Array<String>) {
             var effect by remember { mutableStateOf(true) }
             var delay by remember { mutableStateOf(10) }
 
+            ScreenShot()
             Text("Now using ${type(effect)}", textAlign = TextAlign.Center)
             Spacer(Modifier.height(20.dp))
             Button(onClick = { effect = !effect }) {
@@ -169,6 +228,19 @@ fun main(args: Array<String>) {
                     .clip(CircleShape)
                     .size(30.dp)
                     .background(Color.Red)
+            )
+
+            GifAnimation(
+                modifier = Modifier.size(50.dp),
+                loadGif(
+                    "https://user-images.githubusercontent.com/356994/100579048-4e006a80-3298-11eb-8ea0-a7205221f389.gif"
+                )
+            )
+            GifAnimation(
+                modifier = Modifier.size(50.dp),
+                loadGif(
+                    "https://raw.githubusercontent.com/JetBrains/skija/ccf303ebcf926e5ef000fc42d1a6b5b7f1e0b2b5/examples/scenes/images/codecs/animated.gif"
+                )
             )
         }
     }

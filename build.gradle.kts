@@ -13,7 +13,7 @@ plugins {
 
 group = "dev.suresh"
 
-version = "1.2.0"
+version = "1.2.1"
 
 kotlin {
     // explicitApi()
@@ -213,7 +213,7 @@ compose.desktop {
                 "jdk.management.jfr",
                 "jdk.management.agent",
                 "jdk.crypto.ec",
-                "java.xml"
+                "java.net.http"
             )
 
             // sourceSets.main.get().resources.srcDirs.first()
