@@ -13,7 +13,7 @@ plugins {
 
 group = "dev.suresh"
 
-version = "1.2.2"
+version = "1.2.3"
 
 kotlin {
   // explicitApi()
