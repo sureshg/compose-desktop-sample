@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.*
 
 /** Modifier extensions. */
 fun Modifier.outline(error: Boolean): Modifier = composed {
-    when {
-        error -> border(width = 1.dp, color = Color.Red, shape = RoundedCornerShape(3.dp))
-        else -> this
-    }
+  when {
+    error -> border(width = 1.dp, color = Color.Red, shape = RoundedCornerShape(3.dp))
+    else -> this
+  }
 }

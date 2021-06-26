@@ -1,8 +1,15 @@
-# http://editorconfig.org
 root = true
 
+[*]
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
 [*.{kt,kts}]
-disabled_rules=no-wildcard-imports
+# kotlin_imports_layout = ascii
+# disabled_rules=no-wildcard-imports
 
 [**/test/**.kt]
-ktlint_ignore_back_ticked_identifier=true
+ktlint_ignore_back_ticked_identifier = true

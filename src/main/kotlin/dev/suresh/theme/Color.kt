@@ -9,7 +9,7 @@ val purple700 = Color(0xFF3700B3)
 val teal200 = Color(0xFF03DAC5)
 
 val DarkColorPalette =
-    darkColors(primary = purple200, primaryVariant = purple700, secondary = teal200)
+  darkColors(primary = purple200, primaryVariant = purple700, secondary = teal200)
 
 val LightColorPalette =
-    lightColors(primary = purple500, primaryVariant = purple700, secondary = teal200)
+  lightColors(primary = purple500, primaryVariant = purple700, secondary = teal200)
