@@ -146,7 +146,7 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
       """
         ::set-output name=${prefix}_name::${it.name}
         ::set-output name=${prefix}_path::${it.absolutePath}
-            """.trimIndent()
+      """.trimIndent()
     )
     else -> println("$prefix: $this")
   }
