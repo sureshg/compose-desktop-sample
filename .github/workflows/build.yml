@@ -46,7 +46,7 @@ jobs:
         include:
           - os: ubuntu-latest
             cmd: ./gradlew
-          - os: self-hosted
+          - os: arm64
             cmd: ./gradlew
           - os: macos-latest
             cmd: ./gradlew
