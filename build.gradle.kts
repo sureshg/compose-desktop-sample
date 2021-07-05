@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
   id("com.google.devtools.ksp") version "1.5.10-1.0.0-beta02"
   kotlin("jvm") version "1.5.10"
-  id("org.jetbrains.compose") version "0.5.0-build227"
+  id("org.jetbrains.compose") version "0.5.0-build229"
   id("com.github.ben-manes.versions") version "0.39.0"
   id("com.diffplug.spotless") version "5.14.0"
 }
@@ -115,7 +115,7 @@ tasks {
   test { useJUnitPlatform() }
 
   wrapper {
-    gradleVersion = "7.1"
+    gradleVersion = "7.1.1"
     distributionType = Wrapper.DistributionType.ALL
   }
 
@@ -154,6 +154,7 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 
 dependencies {
   implementation(compose.desktop.currentOs)
+  implementation(compose.uiTooling)
   implementation("app.redwarp.gif:decoder:0.6.0")
   implementation("moe.tlaster:precompose:0.2.2")
   // Icons Packs
@@ -208,11 +209,11 @@ compose.desktop {
       "-Dskiko.fps.periodSeconds=2.0",
       "-Dskiko.fps.longFrames.show=true",
       // "-Dskiko.renderApi=SOFTWARE",
-      // "skiko.vsync.enabled=false",
+      // "-Dskiko.vsync.enabled=false",
       // "-XX:NativeMemoryTracking=summary",
     )
     nativeDistributions {
-      targetFormats(Dmg, Exe, Deb)
+      targetFormats(Dmg, Exe, Deb, Rpm)
       packageName = "compose-desktop-sample"
       packageVersion = project.version.toString()
       description = "Compose desktop playground!"
