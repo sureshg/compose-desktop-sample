@@ -37,6 +37,17 @@ $ sudo xattr -cr /Applications/compose-desktop-sample.app
 # Stop Gradle daemon after switching the JDK
 $ ./gradlew --stop && pkill -f KotlinCompileDaemon
 
+# ARM64 self hosted runner config (Oracle cloud A1 flex)
+$ ./config.sh --url https://github.com/sureshg/repo --token xxxxx
+./bin/Runner.Listener: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by ./bin/Runner.Listener)
+./bin/Runner.Listener: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by ./bin/Runner.Listener)
+
+$ sudo yum whatprovides '*libstdc++*' // this provides the oracle-armtoolset location OR "locate libstdc++.so"
+$ strings  /opt/oracle/oracle-armtoolset-8/root/usr/lib64/libstdc++.so | grep -i glib
+
+$ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+$ export LD_LIBRARY_PATH=/opt/oracle/oracle-armtoolset-8/root/usr/lib64:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+
 ```
 
 ## Tools
