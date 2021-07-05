@@ -12,18 +12,15 @@ import java.util.*
 @Composable
 fun GifRenderer(url: String, reverse: Boolean = false): State<Painter> {
 
-  var codec by remember(url) {
-    // https://css-tricks.com/snippets/html/base64-encode-of-1x1px-transparent-gif/
-    val blankGif =
-      Base64.getDecoder().decode("R0lGODlhAQABAHAAACH5BAUAAAAALAAAAAABAAEAAAICRAEAOw==")
-    mutableStateOf(Codec.makeFromData(Data.makeFromBytes(blankGif)))
-  }
+  // https://css-tricks.com/snippets/html/base64-encode-of-1x1px-transparent-gif/
+  val blankGif = Base64.getDecoder().decode("R0lGODlhAQABAHAAACH5BAUAAAAALAAAAAABAAEAAAICRAEAOw==")
+  val blankGifCodec = Codec.makeFromData(Data.makeFromBytes(blankGif))
 
   // Load the Gif
-  LaunchedEffect(url) {
+  val codec by produceState(blankGifCodec) {
     withContext(Dispatchers.IO) {
       val bytes = URL(url).readBytes()
-      codec = Codec.makeFromData(Data.makeFromBytes(bytes))
+      value = Codec.makeFromData(Data.makeFromBytes(bytes))
     }
   }
 
@@ -47,7 +44,7 @@ fun GifRenderer(url: String, reverse: Boolean = false): State<Painter> {
         durationMillis = 0
         for ((index, frame) in codec.framesInfo.withIndex()) {
           // Add keyframes
-          index at durationMillis
+          index at durationMillis with LinearEasing
           // For handling blank gif
           val frameDuration = frame.duration.takeIf { it > 0 } ?: 1
           durationMillis += frameDuration
