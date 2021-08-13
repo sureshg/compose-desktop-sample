@@ -155,7 +155,7 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.uiTooling)
-  implementation("app.redwarp.gif:decoder:0.6.0")
+  implementation("app.redwarp.gif:decoder:0.7.2")
   implementation("moe.tlaster:precompose:0.2.2")
   // Icons Packs
   listOf(
