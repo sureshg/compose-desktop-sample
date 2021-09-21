@@ -8,7 +8,7 @@ plugins {
   kotlin("jvm") version "1.5.10"
   id("org.jetbrains.compose") version "0.5.0-build229"
   id("com.github.ben-manes.versions") version "0.39.0"
-  id("com.diffplug.spotless") version "5.14.0"
+  id("com.diffplug.spotless") version "5.15.1"
 }
 
 group = "dev.suresh"
