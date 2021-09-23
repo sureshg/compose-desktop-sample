@@ -174,7 +174,7 @@ dependencies {
   }
 
   testImplementation(kotlin("test-junit5"))
-  testImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
   // implementation(compose.materialIconsExtended)
   // implementation("com.google.accompanist:accompanist-flowlayout:0.7.0")
