@@ -18,6 +18,9 @@ import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
+import androidx.compose.ui.window.*
+import compose.icons.*
+import compose.icons.simpleicons.*
 import dev.suresh.gif.*
 import dev.suresh.jfr.*
 import kotlinx.coroutines.*
@@ -54,12 +57,12 @@ fun FrameRate() {
 
   Column(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.TopCenter)) {
     Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-      /*Icon(
-          imageVector = SimpleIcons.Kotlin,
-          contentDescription = "",
-          tint = MaterialTheme.colors.primary,
-          modifier = Modifier.align(Alignment.CenterVertically)
-      )*/
+      Icon(
+        imageVector = SimpleIcons.Kotlin,
+        contentDescription = "",
+        tint = MaterialTheme.colors.primary,
+        modifier = Modifier.align(Alignment.CenterVertically)
+      )
       Text(
         "Frame rate: $frameRate fps",
         modifier =
@@ -174,9 +177,9 @@ fun ScreenShot() {
   }
 }
 
-fun main(args: Array<String>) {
+fun main(args: Array<String>) = application {
   println("Args " + args.getOrElse(0) { "1.0" })
-  Window {
+  Window(onCloseRequest = ::exitApplication) {
     FrameRate()
 
     Column(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)) {

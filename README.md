@@ -65,6 +65,14 @@ $ export LD_LIBRARY_PATH=/opt/oracle/oracle-armtoolset-8/root/usr/lib64:/usr/loc
 - [Compose Release Notes](https://developer.android.com/jetpack/androidx/releases/compose)
 - [Compose Awesome](https://github.com/jetpack-compose/jetpack-compose-awesome)
 
+<hr>
+
+ - https://github.com/hfhbd/routing-compose
+ - https://github.com/ArTemmey/compose-jb-routing
+ - https://github.com/Tlaster/PreCompose
+ - https://github.com/arkivanov/Decompose
+
+
 [0]: https://www.jetbrains.com/lp/compose
 
 [1]: https://filiph.github.io/raytracer/

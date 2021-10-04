@@ -18,6 +18,7 @@ import androidx.compose.ui.*
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.*
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
@@ -120,6 +121,7 @@ private fun addDropTarget() {
         println("Dropped here ${dtde?.transferable}")
       }
     }
+
   LocalAppWindow.current.window.dropTarget = target
 }
 
@@ -412,7 +414,7 @@ fun NavBar(scaffoldState: ScaffoldState) {
 
   Column {
     Image(
-      bitmap = imageFromResource("humming.jpg"),
+      bitmap = useResource("humming.jpg", ::loadImageBitmap),
       contentDescription = "Hummingbird",
       modifier = Modifier.padding(5.dp).size(100.dp, 100.dp),
     )

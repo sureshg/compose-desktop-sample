@@ -4,38 +4,36 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-  id("com.google.devtools.ksp") version "1.5.10-1.0.0-beta02"
-  kotlin("jvm") version "1.5.10"
-  id("org.jetbrains.compose") version "0.5.0-build229"
+  id("com.google.devtools.ksp") version "1.5.31-1.0.0"
+  kotlin("jvm") version "1.5.31"
+  id("org.jetbrains.compose") version "1.0.0-alpha4-build366"
   id("com.github.ben-manes.versions") version "0.39.0"
-  id("com.diffplug.spotless") version "5.14.0"
+  id("com.diffplug.spotless") version "5.16.0"
 }
 
 group = "dev.suresh"
-
-version = "1.2.3"
+version = "1.3.0"
 
 kotlin {
   // explicitApi()
   sourceSets.all {
     languageSettings.apply {
       progressiveMode = true
-      enableLanguageFeature(LanguageFeature.InlineClasses.name)
       enableLanguageFeature(LanguageFeature.NewInference.name)
       enableLanguageFeature(LanguageFeature.JvmRecordSupport.name)
-      useExperimentalAnnotation("kotlin.RequiresOptIn")
-      useExperimentalAnnotation("kotlin.ExperimentalStdlibApi")
-      useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
-      useExperimentalAnnotation("kotlin.io.path.ExperimentalPathApi")
-      useExperimentalAnnotation("kotlin.time.ExperimentalTime")
-      useExperimentalAnnotation("kotlinx.serialization.ExperimentalSerializationApi")
-      useExperimentalAnnotation("kotlin.ExperimentalMultiplatform")
+      optIn("kotlin.RequiresOptIn")
+      optIn("kotlin.ExperimentalStdlibApi")
+      optIn("kotlin.ExperimentalUnsignedTypes")
+      optIn("kotlin.io.path.ExperimentalPathApi")
+      optIn("kotlin.time.ExperimentalTime")
+      optIn("kotlinx.serialization.ExperimentalSerializationApi")
+      optIn("kotlin.ExperimentalMultiplatform")
       // Compose specific
-      useExperimentalAnnotation("androidx.compose.material.ExperimentalMaterialApi")
-      useExperimentalAnnotation("androidx.compose.animation.ExperimentalAnimationApi")
-      useExperimentalAnnotation("androidx.compose.foundation.ExperimentalFoundationApi")
-      useExperimentalAnnotation("androidx.compose.runtime.ExperimentalComposeApi")
-      useExperimentalAnnotation("androidx.compose.ui.ExperimentalComposeUiApi")
+      optIn("androidx.compose.material.ExperimentalMaterialApi")
+      optIn("androidx.compose.animation.ExperimentalAnimationApi")
+      optIn("androidx.compose.foundation.ExperimentalFoundationApi")
+      optIn("androidx.compose.runtime.ExperimentalComposeApi")
+      optIn("androidx.compose.ui.ExperimentalComposeUiApi")
     }
   }
 }
@@ -71,27 +69,11 @@ spotless {
 }
 
 tasks {
-  withType<JavaCompile>().configureEach {
-    options.apply {
-      encoding = "UTF-8"
-      release.set(15)
-      isIncremental = true
-      isFork = true
-      compilerArgs.addAll(
-        listOf(
-          "-Xlint:all",
-          "-parameters",
-          "--add-exports",
-          "java.base/sun.nio.ch=ALL-UNNAMED"
-        )
-      )
-    }
-  }
 
   withType<KotlinCompile>().configureEach {
     kotlinOptions {
       verbose = true
-      jvmTarget = "15"
+      jvmTarget = "16"
       javaParameters = true
       incremental = true
       freeCompilerArgs +=
@@ -115,7 +97,7 @@ tasks {
   test { useJUnitPlatform() }
 
   wrapper {
-    gradleVersion = "7.1.1"
+    gradleVersion = "7.2"
     distributionType = Wrapper.DistributionType.ALL
   }
 
@@ -127,6 +109,9 @@ tasks {
  * Sets the Github Action output as package name and path to use in other steps.
  */
 gradle.buildFinished {
+  val pkgTasks =
+    project.gradle.startParameter.taskNames.filter { it.startsWith("package", ignoreCase = true) }
+
   val pkgFormat =
     compose.desktop.application.nativeDistributions.targetFormats.firstOrNull { it.isCompatibleWithCurrentOS }
   val nativePkg = buildDir.resolve("compose/binaries").findPkg(pkgFormat?.fileExt)
@@ -155,8 +140,9 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.uiTooling)
-  implementation("app.redwarp.gif:decoder:0.6.0")
-  implementation("moe.tlaster:precompose:0.2.2")
+  implementation("app.softwork:routing-compose:0.0.31")
+  implementation("app.redwarp.gif:decoder:0.8.0")
+
   // Icons Packs
   listOf(
     "simple-icons",
@@ -170,12 +156,14 @@ dependencies {
     "erikflowers-weather-icons",
     "css-gg"
   ).forEach {
-    implementation("br.com.devsrsouza.compose.icons.jetbrains:$it-desktop:0.2.0")
+    implementation("br.com.devsrsouza.compose.icons.jetbrains:$it:1.0.0")
   }
 
   testImplementation(kotlin("test-junit5"))
-  testImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
+  // com.paligot.kighlighter:kighlighter-compose-desktop:1.0.0-SNAPSHOT
+  // implementation("moe.tlaster:precompose:0.2.2")
   // implementation(compose.materialIconsExtended)
   // implementation("com.google.accompanist:accompanist-flowlayout:0.7.0")
   // implementation("com.zachklipp:compose-backstack:0.7.0+alpha04")
@@ -184,7 +172,6 @@ dependencies {
   // implementation("com.alialbaali.kamel:kamel-image:0.2.0")
   // https://github.com/ruckustboom/Palette - Material colors
   // https://github.com/app-outlet/karavel  - Navigation
-  // com.github.Tlaster.PreCompose:precompose:1.0.0
   // https://github.com/DevSrSouza/svg-to-compose
   // https://github.com/TheMrCodes/Compose-Tab-Component
   // https://github.com/tehras/charts
@@ -213,7 +200,7 @@ compose.desktop {
       // "-XX:NativeMemoryTracking=summary",
     )
     nativeDistributions {
-      targetFormats(Dmg, Exe, Deb, Rpm)
+      targetFormats(Deb, Rpm, Dmg, Exe)
       packageName = "compose-desktop-sample"
       packageVersion = project.version.toString()
       description = "Compose desktop playground!"
