@@ -6,9 +6,9 @@ import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
   id("com.google.devtools.ksp") version "1.5.31-1.0.0"
   kotlin("jvm") version "1.5.31"
-  id("org.jetbrains.compose") version "1.0.0-alpha4-build366"
+  id("org.jetbrains.compose") version "1.0.0-rc6"
   id("com.github.ben-manes.versions") version "0.39.0"
-  id("com.diffplug.spotless") version "5.16.0"
+  id("com.diffplug.spotless") version "6.0.0"
 }
 
 group = "dev.suresh"
@@ -97,7 +97,7 @@ tasks {
   test { useJUnitPlatform() }
 
   wrapper {
-    gradleVersion = "7.2"
+    gradleVersion = "7.3"
     distributionType = Wrapper.DistributionType.ALL
   }
 
@@ -139,9 +139,9 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 
 dependencies {
   implementation(compose.desktop.currentOs)
-  implementation(compose.uiTooling)
-  implementation("app.softwork:routing-compose:0.0.31")
-  implementation("app.redwarp.gif:decoder:0.8.0")
+  implementation(compose.preview)
+  implementation("app.softwork:routing-compose:0.1.2")
+  implementation("app.redwarp.gif:decoder:0.9.0")
 
   // Icons Packs
   listOf(
@@ -160,7 +160,7 @@ dependencies {
   }
 
   testImplementation(kotlin("test-junit5"))
-  testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
   // com.paligot.kighlighter:kighlighter-compose-desktop:1.0.0-SNAPSHOT
   // implementation("moe.tlaster:precompose:0.2.2")
