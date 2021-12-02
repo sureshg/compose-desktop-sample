@@ -140,7 +140,7 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.uiTooling)
-  implementation("app.softwork:routing-compose:0.0.31")
+  implementation("app.softwork:routing-compose:0.1.3")
   implementation("app.redwarp.gif:decoder:0.8.0")
 
   // Icons Packs
