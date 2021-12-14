@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-  id("com.google.devtools.ksp") version "1.5.31-1.0.0"
+  id("com.google.devtools.ksp") version "1.6.0-1.0.2"
   kotlin("jvm") version "1.5.31"
   id("org.jetbrains.compose") version "1.0.0-alpha4-build366"
   id("com.github.ben-manes.versions") version "0.39.0"
