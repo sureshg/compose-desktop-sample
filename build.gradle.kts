@@ -4,11 +4,11 @@ import org.jetbrains.kotlin.config.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 plugins {
-  id("com.google.devtools.ksp") version "1.5.31-1.0.0"
-  kotlin("jvm") version "1.5.31"
-  id("org.jetbrains.compose") version "1.0.0-rc6"
-  id("com.github.ben-manes.versions") version "0.39.0"
-  id("com.diffplug.spotless") version "6.0.0"
+  id("com.google.devtools.ksp") version "1.6.10-1.0.2"
+  kotlin("jvm") version "1.6.10"
+  id("org.jetbrains.compose") version "1.0.1"
+  id("com.github.ben-manes.versions") version "0.40.0"
+  id("com.diffplug.spotless") version "6.1.0"
 }
 
 group = "dev.suresh"
@@ -97,7 +97,7 @@ tasks {
   test { useJUnitPlatform() }
 
   wrapper {
-    gradleVersion = "7.3"
+    gradleVersion = "7.3.3"
     distributionType = Wrapper.DistributionType.ALL
   }
 
@@ -140,7 +140,7 @@ fun File?.ghActionOutput(prefix: String) = this?.let {
 dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.preview)
-  implementation("app.softwork:routing-compose:0.1.2")
+  implementation("app.softwork:routing-compose:0.1.5")
   implementation("app.redwarp.gif:decoder:0.9.0")
 
   // Icons Packs
