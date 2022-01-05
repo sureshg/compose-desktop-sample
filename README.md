@@ -93,7 +93,7 @@ $ export LD_LIBRARY_PATH=/opt/oracle/oracle-armtoolset-8/root/usr/lib64:/usr/loc
 
 [java_url]: https://jdk.java.net/
 
-[java_img]: https://img.shields.io/badge/OpenJDK-jdk--18-ea791d?logo=java&style=for-the-badge&logoColor=ea791d
+[java_img]: https://img.shields.io/badge/OpenJDK-jdk--19-ea791d?logo=java&style=for-the-badge&logoColor=ea791d
 
 [gha_url]: https://github.com/sureshg/compose-desktop-sample/actions/workflows/build.yml
 
