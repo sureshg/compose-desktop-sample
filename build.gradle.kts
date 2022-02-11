@@ -141,7 +141,7 @@ dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.preview)
   implementation("app.softwork:routing-compose:0.1.7")
-  implementation("app.redwarp.gif:decoder:0.9.0")
+  implementation("app.redwarp.gif:decoder:1.0.0")
 
   // Icons Packs
   listOf(
