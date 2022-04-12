@@ -46,7 +46,7 @@ jobs:
 
     steps:
       - name: Check out the source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download ${{ matrix.os }} OpenJDK ${{ matrix.jdk }}
         id: download-jdk
@@ -113,7 +113,7 @@ jobs:
 
     steps:
       - name: Check out the source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
