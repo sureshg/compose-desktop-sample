@@ -99,7 +99,7 @@ $ export LD_LIBRARY_PATH=/opt/oracle/oracle-armtoolset-8/root/usr/lib64:/usr/loc
 
 [gha_img]: https://github.com/sureshg/compose-desktop-sample/actions/workflows/build.yml/badge.svg?branch=main
 
-[shieldio_img]: https://img.shields.io/github/workflow/status/sureshg/compose-desktop-sample/Compose%20Desktop%20Build/main?color=green&label=Build&logo=Github-Actions&logoColor=green&style=for-the-badge
+[shieldio_img]: https://img.shields.io/github/actions/workflow/status/sureshg/compose-desktop-sample/build.yml?branch=main&color=green&label=Build&logo=Github-Actions&logoColor=green&style=for-the-badge
 
 [sty_url]: https://kotlinlang.org/docs/coding-conventions.html
 
