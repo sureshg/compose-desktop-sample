@@ -64,7 +64,7 @@ jobs:
           jdkFile: ${{ env.JDK_FILE }}
 
       - name: Cache Gradle dependencies
-        uses: actions/cache@v3.0.8
+        uses: actions/cache@v3.2.5
         with:
           path: |
             ~/.gradle/caches
