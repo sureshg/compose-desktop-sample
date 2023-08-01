@@ -160,7 +160,7 @@ dependencies {
   }
 
   testImplementation(kotlin("test-junit5"))
-  testImplementation("org.junit.jupiter:junit-jupiter:5.9.0-M1")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 
   // com.paligot.kighlighter:kighlighter-compose-desktop:1.0.0-SNAPSHOT
   // implementation("moe.tlaster:precompose:0.2.2")
