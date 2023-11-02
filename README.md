@@ -42,7 +42,7 @@ $ ./config.sh --url https://github.com/sureshg/repo --token xxxxx
 ./bin/Runner.Listener: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by ./bin/Runner.Listener)
 ./bin/Runner.Listener: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by ./bin/Runner.Listener)
 
-$ sudo yum whatprovides '*libstdc++*' // this provides the oracle-armtoolset location OR "locate libstdc++.so"
+$ sudo yum install oracle-armtoolset-8
 $ strings  /opt/oracle/oracle-armtoolset-8/root/usr/lib64/libstdc++.so | grep -i glib
 
 $ export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
